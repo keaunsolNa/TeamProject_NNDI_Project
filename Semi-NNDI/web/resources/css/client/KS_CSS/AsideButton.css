@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+button{
+	background-color: rgba(254, 190, 190, 1);
+	border: 0;
+}
+
+li{
+	margin-left: 50px;
+}

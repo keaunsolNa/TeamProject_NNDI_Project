@@ -1,0 +1,557 @@
+* {
+    box-sizing: border-box;
+  }
+  /* Style the header */
+  header {
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+  }
+  /* 너나들이 중랑 로고 */
+
+  .nndi-logo{
+    margin-top: 5px;
+    margin-bottom:2px;
+    width: 600px;
+    height: 88px;
+    left: 8px;
+    top: 15px;
+  }
+
+  .nndi-foot{
+    width: 800px;
+    height: 80px;
+    left: 249px;
+    top: 1648px;
+  }
+  /* topnav */
+  .topnav {
+    overflow: hidden;
+    background-color: rgba(254, 190, 190, 1);
+  }
+  
+  .topnav a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+ 
+  /* sidenav */
+  .nav {
+    overflow: hidden;
+    background-color: rgba(254, 190, 190, 1);
+  }
+  
+  .nav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+
+  /* Create two columns/boxes that floats next to each other */
+  nav {
+    float: left;
+    width: 15%;
+    height: 1000px;
+    background: rgba(254, 190, 190, 1);
+    padding: 20px;
+  }
+  
+  /* Style the list inside the menu */
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .post {
+    float: left;
+    padding: 20px;
+    background-color: #f1f1f1;
+  }
+  .post.s{
+    width: 40%;
+    margin-top: 20px;
+    margin-bottom:20px;
+    margin-left: 10px;
+    border-style: groove;
+  }
+  .post.re{
+    width: 81%;
+    margin-left: 10px;
+    border-style: groove;
+  }
+  .float{
+    float: left;
+    padding: 10px;
+    background-color: #ffffff;
+    width: 81%;
+    margin-left: 10px;
+  }
+
+  .post label{
+      font-size: xx-large;
+  }
+  #siteMapDiv{
+    float: left;
+    padding-left: 10%;
+    text-align: center;
+
+  }
+  #siteMapDiv table{
+    float: left;
+    border: 1;
+    height: 300px; 
+    width: 250px; 
+    float : left;
+
+  }
+  #siteMapDiv2{
+    float: left;
+    padding-left: 20%;
+    padding-top: 15%;
+    text-align: center;
+  }
+
+  #siteMapDiv2 a{
+    color: rgba(254, 190, 190, 1);
+    
+    text-decoration: none;
+  }
+
+  #siteMapDiv a{
+    color: rgba(254, 190, 190, 1);
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  /* Clear floats after the columns */
+  section::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+
+  .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #2b2b2b;
+    display: block;
+    border: 1;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    }
+
+    .dropdown-container {
+      display: none;
+      background-color: #bb8ff5;
+      padding-left: 8px;
+      }
+  
+  /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+  @media (max-width: 600px) {
+    nav, article {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  /* BookSearch layout */
+  #topview{
+    border: 1px solid red; 
+    height: 30px;
+    float: left;
+    margin-left: 10%;
+
+}
+  #topview2{
+    margin-top: 3%; 
+    margin-left: 5%; 
+    margin-right: 5%; 
+    height: auto;
+    background-color:  rgba(217, 217, 217, 0.6);
+  }
+#bookButton{
+    text-align: center; 
+    padding: 10%;
+    float: left;
+    margin-left: 25%;
+}
+#bookSearchbutton{
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: rgba(254, 190, 190, 1);
+  text-align: center; 
+  float: left;
+  margin-left: 35%;
+  
+}
+#selectBook{
+  background-color: rgba(254, 190, 190, 1);
+  border: 0;
+  color: white;
+}
+#searchBook{
+  background-color: rgba(254, 190, 190, 1);
+  border: 0;
+  width: 200px;
+  color: white;
+}
+#bookButton button{
+    background-color: white; 
+    border: 0px;
+}
+#bookSearch{
+    
+    height: auto;
+    background-color: rgba(217, 217, 217, 0.6);
+    float: left;
+    margin-left: 10%;
+    
+}
+#bookSearch select{
+    border: 0px;
+}
+#bookSearch button{
+    border: 0px;
+    background-color: rgba(217, 217, 217, 0.6);
+}
+#bookSearch legend{
+    border: 1px solid rgba(217, 217, 217, 0.6);
+}
+
+/* SelectSection */
+#selectHead{
+  text-align-last: center; 
+}
+#selectHeadText{
+  border: 10px solid #dddddd; 
+  padding:30px;
+  background-color:  rgba(254, 190, 190, 1);
+}
+
+#selectList{
+
+  float: left;
+}
+#selectList legend{
+  width: 300px;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  margin-left: 10%;
+}
+#selectList2{
+
+  float: left;
+}
+#selectList2 legend{
+  width: 200px;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  margin-left: 10%;
+}
+
+/* UserAccount */
+
+
+
+#AccountForm legend{
+  width: 15%;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+} 
+#userAccountForm h{
+  color: red;
+}
+#userAccountForm button{
+  background-color: rgba(254, 190, 190, 1);
+  color: white;
+}
+
+
+/* UserLogin */
+#UserLoginBody {
+  margin: 0;
+  padding: 0;
+  background-color:  rgba(254, 190, 190, 1);
+  
+  height: 100vh;
+  }
+  #login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+  }
+  #login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+  }
+  #login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+  }
+
+ /* UserPwdFind  */
+  #pwdFind{
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    text-align: center;
+    width: 50%;
+    margin-left: 5%;
+}
+#pwdFind button{
+    background-color: rgba(254, 190, 190, 1);
+    color: white;
+}
+
+#submitbutton{
+  width: 15%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  background-color: rgba(254, 190, 190, 1);;
+}
+
+#button {
+  background-color: rgba(254, 190, 190, 1);
+  color: white;
+  text-align: center;
+  margin-left: 35%;
+}
+
+/* selectClassByUser */
+#selectClassByUser label{
+  margin-bottom: 10px;
+}
+#selectClassByUser img{
+  float: left;
+  width: 15%; 
+}
+#selectClassByUser button{
+  background-color: rgba(254, 190, 190, 1); 
+  color: white;
+}
+
+/* UserRent */
+#UserCenterRent{
+  width: 70%;
+  float: left;
+}
+#UserCenterRent label{
+  background-color: rgba(254, 190, 190, 1);
+}
+#UserCenterRentimg {
+  float: right;
+  width: 25%;
+  height: 25%;
+}
+
+.pagination{
+  float: left;
+  margin-left: 25%;
+  margin-top: 15%;
+}
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: rgba(254, 190, 190, 1);
+  color: white;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+.post.title{
+	margin-top: 0%;
+    width: 85%;
+    height: 60px;
+    margin-bottom: 5px;
+    background-color:   rgba(254, 190, 190, 1);
+    float: left;
+}
+
+.top{
+    text-align: center;
+    font-weight:bolder;
+    color: rgb(106, 106, 106);
+}
+
+.post.add{
+    width: 70%;
+    margin-right: 30px;
+    margin-left: 50px;
+    background-color: white;
+}
+
+label {
+    font-size: larger;
+    font-weight: bolder;
+    color: rgb(79, 78, 78);
+    padding: 8px 8px 8px 0;
+    display: inline-block;
+    padding-bottom: 11px;
+    padding-top: 11px;
+  }
+
+/* input[type=text], select, textarea {
+  width: 30%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+} */
+
+#submitbutton{
+    width: 15%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    background-color: rgba(254, 190, 190, 1);;
+}
+.emps{
+  width: 40% !important;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+h{
+    color: red;
+}
+
+.btns{
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 20%;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: whitesmoke;
+    border: 1px solid  rgba(254, 190, 190, 1);
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.btns.add{
+    background-color: #e3e2ff;
+    border: 1px solid  rgba(254, 190, 190, 1);
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.btns.add:hover{
+    background-color:  rgba(254, 190, 190, 1);
+    border: 1px solid rgb(105, 105, 105);
+}
+
+.btns:hover{
+    background-color: #faffdf;
+    border: 1px solid rgb(105, 105, 105);
+}
+
+.back{
+    float: right;
+    margin-top: 20px;
+    margin-right: 50px;
+    border-radius: 6px;
+    padding: 8px 10px;
+    background-color:  rgba(254, 190, 190, 1);
+    border: 1px solid rgb(105, 105, 105);
+    color: white;
+}
+
+.back:hover{
+    background-color: #605d93;
+    border: 1px solid rgb(105, 105, 105);
+}
+
+table {
+    width: 100%;
+    border: 1px solid rgb(105, 105, 105);
+}
+
+td{
+    text-align: center;
+    padding: 10px;
+}
+
+.td1 {
+    border: 1px solid rgb(105, 105, 105);
+    background-color: #DDDCFC;
+}
+
+.td2{
+    border: 1px solid rgb(105, 105, 105);
+}
+
+.up{
+  width: 20% !important;
+  padding: 12px;
+  border: 1px solid #ccc;
+  resize: none;
+  width:50px
+}
+
+.hc{
+    margin-left: 20%;
+    float: left;    
+}
+
+.hc .it {
+   float: left;
+   width: 200px;
+    height: 50px;
+   text-align: center;
+    font-size: 30px;
+   border: 1px solid rgba(254, 190, 190, 1);
+   
+
+}
+
+.hc .it.first{
+   background-color: rgba(254, 190, 190, 1);
+}

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+ <mapper namespace="com.nndi.client.board.UserBoardMapper">
+ 
+ 
+ 	<!-- BoardAndCategoryDTO -->
+ 	<resultMap type="com.nndi.model.joindto.client.board.BoardAndCategoryDTO" id="BoardAndCategoryResultMap">
+ 		<id property="num" column="NUM"/>
+ 		<result property="cate" column="CATE_NUM"/>
+ 		<result property="memberId" column="MEM_ID"/>
+ 		<result property="managerId" column="MANAGER_ID"/>
+ 		<result property="date" column="POST_DATE"/>
+ 		<result property="title" column="TITLE"/>
+ 		<result property="content" column="CONTENT"/>
+ 		<result property="answer" column="ANSWER_YN"/>
+ 		<result property="answerContent" column="ANSWER_CONTENT"/>
+ 		<result property="display" column="DISPLAY_YN"/>
+ 		<result property="hits" column="HITS"/>
+ 		<association property="category" javaType="com.nndi.model.commondto.PostCategoryDTO">
+ 			<id property="cateNum" column="CATE_NUM"/>
+ 			<result property="cateKind" column="CATE_KIND"/>
+ 		</association>
+ 	</resultMap>
+ 	
+ 	<!-- AdmireAndCategoryDTO -->
+ 	<resultMap type="com.nndi.model.joindto.client.board.AdmireAndCategoryDTO" id="AdmireAndCategoryResultMap">
+ 		<id property="num" column="NUM"/>
+ 		<result property="cate" column="CATE_NUM"/>
+ 		<result property="memId" column="MEM_ID"/>
+ 		<result property="postDate" column="POST_DATE"/>
+ 		<result property="title" column="TITLE"/>
+ 		<result property="content" column="CONTENT"/>
+ 		<result property="displayYn" column="DISPLAY_YN"/>
+ 		<result property="hits" column="HITS"/>
+ 		<association property="category" javaType="com.nndi.model.commondto.PostCategoryDTO">
+ 			<id property="cateNum" column="CATE_NUM"/>
+ 			<result property="cateKind" column="CATE_KIND"/>
+ 		</association>
+ 	</resultMap>
+ 	
+ 	<!-- boardDTO -->
+ 	<resultMap type="com.nndi.model.commondto.BoardDTO" id="boardResultMap">
+ 		<id property="num" column="NUM"/>
+ 		<result property="cate" column="CATE_NUM"/>
+ 		<result property="memberId" column="MEM_ID"/>
+ 		<result property="managerId" column="MANAGER_ID"/>
+ 		<result property="date" column="POST_DATE"/>
+ 		<result property="title" column="TITLE"/>
+ 		<result property="content" column="CONTEN reT"/>
+ 		<result property="answer" column="ANSWER_YN"/>
+ 		<result property="answerContent" column="ANSWER_CONTENT"/>
+ 		<result property="display" column="DISPLAY_YN"/>
+ 		<result property="hits" column="HITS"/>
+ 	</resultMap>
+ 
+ 	<!-- NoticeDTO -->
+	  <resultMap type="com.nndi.model.commondto.NoticeDTO" id="NoticeResultMap">
+	  	<id property="num" column="NUM"/>
+	  	<result property="managerId" column="MANAGER_ID"/>
+	  	<result property="cateNum" column="CATE_NUM"/>
+	  	<result property="postDate" column="POST_DATE"/>
+	  	<result property="title" column="TITLE"/>
+	  	<result property="content" column="CONTENT"/>
+	  	<result property="hits" column="HITS"/>
+	  	<result property="uploadFileKey" column="UPLOAD_FILE_KEY"/>
+	  </resultMap>
+	  
+	<!-- TBLEmploymentDTO -->
+	   <resultMap type="com.nndi.model.commondto.TCREmploymentDTO" id="EmpResultMap">
+	     <id property="num" column="NUM"/>
+	     <result property="managerId" column="MANAGER_ID"/>
+	     <result property="clsNum" column="CLS_NUM"/>
+	     <result property="title" column="TITLE"/>
+	     <result property="fileName" column="FILE_NAME"/>
+	     <result property="empYn" column="EMP_YN"/>
+	     <result property="empCondition" column="EMP_CONDITION"/>
+	     <result property="empNumber" column="EMP_NUMBER"/>
+	     <result property="environment" column="ENVIRONMENT"/>
+	     <result property="empProcess" column="EMP_PROCESS"/>
+	   </resultMap>
+	
+	<!-- AdmireDTO -->   
+	<resultMap type="com.nndi.model.commondto.AdmireDTO" id="CommendResultMap">
+		<id property= "num" column="NUM"/>
+		<result property="cateNum" column="CATE_NUM"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="postDate" column="POST_DATE"/>
+		<result property="title" column="TITLE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="displayYn" column="DISPLAY_YN"/>
+		<result property="hits" column="HITS"/>
+	</resultMap>
+	
+	
+ 	
+ 	<!--  민원 전체 조회 쿼리 -->
+ 	<select id="selectBoardList" resultMap="BoardAndCategoryResultMap">
+ 		SELECT
+               A.NUM
+             , A.CATE_NUM
+             , A.MEM_ID
+             , A.MANAGER_ID
+             , A.POST_DATE
+             , A.TITLE
+             , A.CONTENT
+             , A.ANSWER_YN
+             , A.ANSWER_CONTENT
+             , A.DISPLAY_YN
+             , A.HITS
+             , B.CATE_NUM
+             , B.CATE_KIND
+          FROM TBL_POST_COMPLAIN A
+          JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+         WHERE A.DISPLAY_YN = 'Y'
+        ORDER BY NUM DESC
+ 	</select>
+ 	<!-- 민원 신청 쿼리 -->
+ 	<insert id="insertComplain" parameterType="com.nndi.model.commondto.BoardDTO">
+ 		
+ 		INSERT 
+               INTO TBL_POST_COMPLAIN
+        VALUES
+        (
+          SEQ_COMPLAIN_POST_NUM.NEXTVAL
+        , #{ cate }
+        , #{ memberId }
+        , NULL
+        , SYSDATE
+        , #{ title }
+        , #{ content }
+        , 'N'
+        , NULL
+        , 'Y'
+        , '0'
+        )
+ 	</insert>
+ 	
+ 	<!-- 민원 상세 조회 쿼리 -->
+ 	<select id="complainDetail" parameterType="_int" resultMap="BoardAndCategoryResultMap">
+ 		SELECT
+               A.NUM
+             , A.CATE_NUM
+             , A.MEM_ID
+             , A.MANAGER_ID
+             , A.POST_DATE
+             , A.TITLE
+             , A.CONTENT
+             , A.ANSWER_YN
+             , A.ANSWER_CONTENT
+             , A.DISPLAY_YN
+             , A.HITS
+             , B.CATE_NUM
+             , B.CATE_KIND
+          FROM TBL_POST_COMPLAIN A
+          JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+         WHERE A.NUM = #{ num }
+           AND A.DISPLAY_YN = 'Y'
+ 	</select>
+ 	
+ 	<!-- 민원 수정 쿼리 -->
+ 	<update id="updateComplain" parameterType="com.nndi.model.commondto.BoardDTO">
+ 		UPDATE
+               TBL_POST_COMPLAIN A
+           SET A.CATE_NUM = #{ cate }
+             , A.TITLE = #{ title }
+             , A.CONTENT = #{ content }
+         WHERE A.NUM = #{ num }
+ 	
+ 	</update>
+ 	
+ 	<!-- 공지사항 전체 조회 쿼리 -->
+ 	<select id="selectNotice" resultMap="NoticeResultMap">
+ 		SELECT
+               A.NUM
+             , A.MANAGER_ID
+             , A.CATE_NUM
+             , A.POST_DATE
+             , A.TITLE
+             , A.CONTENT
+             , A.HITS
+             , A.UPLOAD_FILE_KEY
+          FROM TBL_POST_NOTICE A
+         ORDER BY A.NUM DESC
+ 	</select>
+ 	
+ 	<!-- 공지사항 상세 조회 쿼리 -->
+ 	<select id="selectNoticeDetail" parameterType="_int" resultMap="NoticeResultMap">
+ 		SELECT
+               A.NUM
+             , A.MANAGER_ID
+             , A.CATE_NUM
+             , A.POST_DATE
+             , A.TITLE
+             , A.CONTENT
+             , A.HITS
+             , A.UPLOAD_FILE_KEY
+          FROM TBL_POST_NOTICE A
+         WHERE A.NUM = #{ num }
+ 	</select>
+ 	
+ 	<!-- 민원 게시판 삭제(컬럼값 변경)  -->
+ 	<update id="deleteComplain" parameterType="_int">
+ 		UPDATE
+               TBL_POST_COMPLAIN A
+           SET A.DISPLAY_YN = 'N'
+         WHERE A.NUM = #{ num }
+ 	</update>
+ 	
+ 	<!--  민원게시판 답변 상세조회 쿼리 -->
+    <select id="selectComplainAnswer" parameterType="_int" resultMap="BoardAndCategoryResultMap">
+ 		SELECT
+               A.NUM
+             , A.CATE_NUM
+             , A.MEM_ID
+             , A.MANAGER_ID
+             , A.POST_DATE
+             , A.TITLE
+             , A.CONTENT
+             , A.ANSWER_YN
+             , A.ANSWER_CONTENT
+             , A.DISPLAY_YN
+             , A.HITS
+             , B.CATE_NUM
+             , B.CATE_KIND
+          FROM TBL_POST_COMPLAIN A
+          JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+         WHERE A.NUM = #{ num }
+ 	</select> 
+ 	
+ 	<!-- 공지사항 조회수 증가 쿼리문 -->
+ 	<update id="incrementNoticeCount" parameterType="_int">
+ 		UPDATE
+               TBL_POST_NOTICE A
+ 		   SET A.HITS = (SELECT B.HITS
+ 		                   FROM TBL_POST_NOTICE B
+ 		                  WHERE B.NUM = #{ num }
+ 		                ) +1
+  		WHERE A.NUM = #{ num }
+ 		  
+ 	</update>
+ 	
+ 	<!-- 민원게시판 조회수 증가 쿼리문 -->
+ 	<update id="incrementComplainCount" parameterType="_int">
+ 		UPDATE
+               TBL_POST_COMPLAIN A
+ 		   SET A.HITS = (SELECT B.HITS
+ 		                   FROM TBL_POST_COMPLAIN B
+ 		                  WHERE B.NUM = #{ num }
+ 		                ) +1
+  		WHERE A.NUM = #{ num }
+ 		  
+ 	</update>
+ 	
+ 	<!--  강사 모집 게시판 전체 조회 쿼리문 -->
+ 	<select id="selectEmployee" resultMap="EmpResultMap">
+		SELECT
+		       A.NUM
+		     , A.MANAGER_ID
+		     , A.CLS_NUM
+		     , A.TITLE
+		     , A.EMP_YN
+		     , A.EMP_CONDITION
+		     , A.EMP_NUMBER
+		     , A.ENVIRONMENT
+		     , A.EMP_PROCESS
+		  FROM TBL_TEACHER_EMPLOYMENT A
+	  </select>
+	  
+	  
+	  <!--  강사 모집 게시판 상세 조회 쿼리문 -->
+ 	<select id="selectEmpDetail" resultMap="EmpResultMap">
+		SELECT
+		       A.NUM
+		     , A.MANAGER_ID
+		     , A.CLS_NUM
+		     , A.TITLE
+		     , A.EMP_YN
+		     , A.EMP_CONDITION
+		     , A.EMP_NUMBER
+		     , A.ENVIRONMENT
+		     , A.EMP_PROCESS
+		  FROM TBL_TEACHER_EMPLOYMENT A
+		 WHERE A.NUM = #{ num }
+	  </select>
+	  
+	 <!-- 칭찬 게시판 전체 조회 -->
+	<select id="selectAllCommendList" resultMap="AdmireAndCategoryResultMap">
+	 	SELECT
+               A.NUM
+	 	     , A.CATE_NUM
+	 	     , A.MEM_ID
+	 	     , A.POST_DATE
+	 	     , A.TITLE
+	 	     , A.CONTENT
+	 	     , A.DISPLAY_YN
+	 	     , A.HITS
+	 	     , B.CATE_NUM
+ 	 	     , B.CATE_KIND
+ 	 	 FROM TBL_POST_ADMIRE A
+ 	 	 JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+ 	 	WHERE A.DISPLAY_YN = 'Y'
+ 	    ORDER BY A.NUM DESC
+   </select>
+   
+   <!-- 칭찬 게시판 상세 조회 -->
+   <select id="commendDetail" resultMap="AdmireAndCategoryResultMap">
+	 	SELECT
+               A.NUM
+	 	     , A.CATE_NUM
+	 	     , A.MEM_ID
+	 	     , A.POST_DATE
+	 	     , A.TITLE
+	 	     , A.CONTENT
+	 	     , A.DISPLAY_YN
+	 	     , A.HITS
+	 	     , B.CATE_NUM
+ 	 	     , B.CATE_KIND
+ 	 	  FROM TBL_POST_ADMIRE A
+ 	 	  JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+ 	     WHERE NUM = #{ num }
+
+ 	 </select>
+   
+   <!-- 칭찬 게시판 삭제 -->
+    <delete id="deleteCommend">
+	     UPDATE
+	            TBL_POST_ADMIRE
+	        SET DISPLAY_YN = 'N'
+	      WHERE NUM = #{ num }
+ 	</delete>  
+ 	
+ 	
+ 	<!-- 칭찬 게시판 작성 -->
+ 	<insert id="insertCommend" parameterType="com.nndi.model.commondto.AdmireDTO">
+	INSERT
+	       INTO TBL_POST_ADMIRE
+	VALUES
+	     (
+	       SEQ_ADMIRE_POST_NUM.nextval
+		 , #{ cateNum }
+	     , #{ memId }
+	 	 , SYSDATE
+         , #{ title }
+	     , #{ content }
+         , 'Y'
+	     , '0'
+	     )
+ 	
+ 	</insert>
+ 	
+ 	<!-- 칭찬 게시판 수정하기 -->
+ 	<update id="updateCommend" parameterType="com.nndi.model.commondto.AdmireDTO">
+ 	  UPDATE
+               TBL_POST_ADMIRE A
+           SET A.CATE_NUM = #{ cateNum }
+             , A.TITLE = #{ title }
+             , A.CONTENT = #{ content }
+         WHERE A.NUM = #{ num }
+ 	</update>
+ 	
+ 	<!-- 칭찬게시판 조회수 증가 쿼리문 -->
+ 	<update id="incrementCommendCount" parameterType="_int">
+ 		UPDATE
+               TBL_POST_ADMIRE A
+ 		   SET A.HITS = (SELECT B.HITS
+ 		                   FROM TBL_POST_ADMIRE B
+ 		                  WHERE B.NUM = #{ num }
+ 		                ) +1
+  		WHERE A.NUM = #{ num }  
+ 	</update>
+ 	
+ 	<!-- 칭찬 게시판 업데이트 값 불러오기 -->
+   <select id="detailUpdatecmd" resultMap="AdmireAndCategoryResultMap">
+	 	SELECT
+               A.NUM
+	 	     , A.CATE_NUM
+	 	     , A.MEM_ID
+	 	     , A.POST_DATE
+	 	     , A.TITLE
+	 	     , A.CONTENT
+	 	     , A.DISPLAY_YN
+	 	     , A.HITS
+	 	     , B.CATE_NUM
+ 	 	     , B.CATE_KIND
+ 	 	  FROM TBL_POST_ADMIRE A
+ 	 	  JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+ 	     WHERE NUM = #{ num }
+
+ 	 </select>
+ 	 
+ 	<!-- 민원게시판 업데이트값 불러오기 -->
+ 	<select id="detaulUpdateCmp" parameterType="_int" resultMap="BoardAndCategoryResultMap">
+ 		SELECT
+               A.NUM
+             , A.CATE_NUM
+             , A.MEM_ID
+             , A.MANAGER_ID
+             , A.POST_DATE
+             , A.TITLE
+             , A.CONTENT
+             , A.ANSWER_YN
+             , A.ANSWER_CONTENT
+             , A.DISPLAY_YN
+             , A.HITS
+             , B.CATE_NUM
+             , B.CATE_KIND
+          FROM TBL_POST_COMPLAIN A
+          JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+         WHERE A.NUM = #{ num }
+ 	</select>
+	  
+ 	
+ 	
+ 	
+ 
+ </mapper>

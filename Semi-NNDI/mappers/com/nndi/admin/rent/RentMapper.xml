@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.rent.RentMapper">
+
+	<!-- RentAndMemberAliveDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.joindto.admin.rent.RentAndMemberAliveDTO" id="rentAndMemberMap">
+		<id property="num" column="POST_NUM"/>
+		<result property="centerName" column="CENTER_NAME"/>
+		<result property="managerId" column="MANAGER_ID"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="rentReqYn" column="RENT_REQ_YN"/>
+		<result property="rentCost" column="RENT_COST"/>
+		<result property="rentPayYn" column="RENT_PAY_YN"/>
+		<result property="rentRefYn" column="RENT_REF_YN"/>
+		<result property="rentStart" column="RENT_START"/>
+		<result property="rentEnd" column="RENT_END"/>
+		<association property="member" resultMap="memberAliveResultMap"/>
+	</resultMap>
+	
+	<!-- AliveDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.joindto.admin.rent.AliveMemberDTO" id="memberAliveResultMap">
+		<id property="id" column="ID"/>
+		<result property="idQueNum" column="ID_QUE_NUM"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email1" column="EMAIL1"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="name" column="NAME"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="idAnswer" column="ID_ANSWER"/>
+		<result property="gender" column="GENDER"/>
+		<result property="lastLogin" column="LAST_LOGIN"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="outDate" column="OUT_DATE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+	</resultMap>
+	
+	<!-- 대관 요청 리스트 조회 -->
+	<select id="selectAllrentList" resultMap="rentAndMemberMap">
+		SELECT 
+		       A.POST_NUM
+		     , A.CENTER_NAME
+		     , A.MANAGER_ID
+		     , B.PHONE1 || '-' || B.PHONE2 || '-' || B.PHONE3 PHONE
+		     , B.NAME
+		     , A.MEM_ID
+		     , A.RENT_REQ_YN
+		     , A.RENT_COST
+		     , A.RENT_PAY_YN
+ 		     , A.RENT_REF_YN
+		     , A.RENT_START
+		     , A.RENT_END
+		  FROM TBL_RENT_REQUEST A
+		  LEFT OUTER JOIN TBL_MEMBER_ALIVE B ON (A.MEM_ID = B.ID)
+		 ORDER BY A.POST_NUM DESC
+	</select>
+	
+	<select id="selectOneByNumRent" resultMap="rentAndMemberMap" parameterType="_int">
+		SELECT 
+		       A.POST_NUM
+		     , A.CENTER_NAME
+		     , A.MANAGER_ID
+		     , B.PHONE1 || '-' || B.PHONE2 || '-' || B.PHONE3 PHONE
+		     , B.NAME
+		     , A.MEM_ID
+		     , A.RENT_REQ_YN
+		     , A.RENT_COST
+		     , A.RENT_PAY_YN
+ 		     , A.RENT_REF_YN
+		     , A.RENT_START
+		     , A.RENT_END
+		  FROM TBL_RENT_REQUEST A
+		  LEFT OUTER JOIN TBL_MEMBER_ALIVE B ON (A.MEM_ID = B.ID)
+		 WHERE A.POST_NUM = #{ num }
+	</select>
+	
+	<!-- 대관 승인 반려 수정 -->
+	<update id="updateRent" parameterType="map">
+		UPDATE 
+		       TBL_RENT_REQUEST A
+		   SET A.RENT_REQ_YN = #{ answer }
+		     , A.RENT_COST = #{ cost }
+		 WHERE A.POST_NUM = #{ num }
+	</update>
+</mapper>

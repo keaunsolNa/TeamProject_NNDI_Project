@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.member.MemberMapper">
+
+	
+	<!-- MemberTotalDTO resultMap 생성 -->
+	<resultMap
+		type="com.nndi.model.joindto.admin.member.MemberTotalDTO"
+		id="MemberAliveMap">
+		<id property="id" column="ID" />
+		<result property="idQueNum" column="ID_QUE_NUM" />
+		<result property="phone" column="PHONE" />
+		<result property="email" column="EMAIL" />
+		<result property="address" column="ADDRESS" />
+		<result property="pwd" column="PWD" />
+		<result property="name" column="NAME" />
+		<result property="birth" column="BIRTH" />
+		<result property="idAnswer" column="ID_ANSWER" />
+		<result property="gender" column="GENDER" />
+		<result property="lastLogin" column="LAST_LOGIN" />
+		<result property="userStatus" column="USER_STATUS" />
+		<result property="outDate" column="OUT_DATE" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+	</resultMap>
+
+	<!-- BookRentDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.BookRentDTO"
+		id="BookRentMap">
+		<id property="rentNum" column="RENT_NUM" />
+		<result property="code" column="CODE" />
+		<result property="memId" column="MEM_ID" />
+		<result property="rentDate" column="RENT_DATE" />
+		<result property="returnDate" column="RETURN_DATE" />
+		<result property="rentYn" column="RENT_YN" />
+	</resultMap>
+
+	<!-- BookInfoDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.BookInfoDTO"
+		id="BookInfoMap">
+		<id property="code" column="CODE" />
+		<result property="KindsCode" column="KINDS_CODE" />
+		<result property="name" column="NAME" />
+		<result property="writer" column="WRITER" />
+		<result property="locationCode" column="LOCATION_CODE" />
+		<result property="isbn" column="ISBN" />
+		<result property="serchYN" column="SEARCH_YN" />
+		<result property="publisher" column="PUBLISHER" />
+	</resultMap>
+
+	<!-- BookKindDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.BookKindDTO"
+		id="BookKindMap">
+		<id property="kindsCode" column="KINDS_CODE" />
+		<result property="kinds" column="KINDS" />
+	</resultMap>
+
+	<!-- BookrentAndInfoAndKindsDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.joindto.admin.member.BookrentAndInfoAndKindsDTO" id="BookrentAndInfoAndKindsMap">
+		<id property="rentNum" column="RENT_NUM" />
+		<result property="code" column="CODE" />
+		<result property="memId" column="MEM_ID" />
+		<result property="rentDate" column="RENT_DATE" />
+		<result property="returnDate" column="RETURN_DATE" />
+		<result property="rentYn" column="RENT_YN" />
+		<collection property="bookInfo" resultMap="BookInfoMap"/>
+		<collection property="bookKind" resultMap="BookKindMap"/>
+	</resultMap>
+	
+	<!-- ClassDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.ClassDTO" id="classMap">
+		<id property="clsNum" column="CLS_NUM"/>
+		<result property="tcrNo" column="TCR_NO"/>
+		<result property="cenName" column="CEN_NAME"/>
+		<result property="clsName" column="CLS_NAME"/>
+		<result property="clsApplyCnt" column="CLS_APPLY_CNT"/>
+		<result property="clsMaxCnt" column="CLS_MAX_CNT"/>
+		<result property="clsStartDay" column="CLS_START_DAY"/>
+		<result property="clsEndDay" column="CLS_END_DAY"/>
+		<result property="clsExplain" column="CLS_EXPLAIN"/>
+		<result property="clsTime" column="CLS_TIME"/>
+		<result property="clsCost" column="CLS_COST"/>
+		<result property="clsDay" column="CLS_DAY"/>
+		<result property="clsStartYn" column="CLS_START_YN"/>
+		<result property="clsCategoryName" column="CLS_CATEGORY_NAME"/>
+		<result property="clsRecoAge" column="CLS_RECO_AGE"/>
+		<result property="clsRunTime" column="CLS_RUN_TIME"/>
+	</resultMap>
+	
+	<!-- ClassMemberAndClassDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.joindto.admin.member.ClassMemberAndClassDTO" id="ClassMemberAndClassMap">
+		<id property="id" column="ID"/>
+		<result property="clsNum" column="CLS_NUM"/>
+		<result property="clsNum" column="REFUND_YN"/>
+		<collection property="cls" resultMap="classMap"/>
+	</resultMap>
+
+	<!-- AliveDTO resultMap 생성 -->
+	<resultMap type="AliveDTO" id="memberAliveResultMap">
+		<id property="id" column="ID"/>
+		<result property="idQueNum" column="ID_QUE_NUM"/>
+		<result property="phone1" column="PHONE1"/>
+		<result property="phone2" column="PHONE2"/>
+		<result property="phone3" column="PHONE3"/>
+		<result property="email1" column="EMAIL1"/>
+		<result property="email2" column="EMAIL2"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="address2" column="ADDRESS2"/>
+		<result property="address3" column="ADDRESS3"/>
+		<result property="pwd" column="PWD"/>
+		<result property="name" column="NAME"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="idAnswer" column="ID_ANSWER"/>
+		<result property="gender" column="GENDER"/>
+		<result property="lastLogin" column="LAST_LOGIN"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="outDate" column="OUT_DATE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+	</resultMap>
+
+	<!-- MemberAlive 전체 조회 쿼리 -->
+	<select id="selectAllMemberAliveList" resultMap="MemberAliveMap">
+		SELECT
+		  ID
+		, NAME
+		, PHONE1||' - '||PHONE2||' - '||PHONE3 PHONE
+		, BIRTH
+		, ENROLL_DATE
+		FROM
+		TBL_MEMBER_ALIVE
+		ORDER BY ENROLL_DATE
+	</select>
+
+	<!-- MemberAlive 상세보기 쿼리 -->
+	<select id="selectOneMemberAliveById" parameterType="string"
+		resultMap="MemberAliveMap">
+		SELECT
+		A.NAME
+		, A.GENDER
+		, A.ID
+		, A.PWD
+		, A.BIRTH
+		, A.EMAIL1||EMAIL2 EMAIL
+		, A.ADDRESS1||ADDRESS2||ADDRESS3 ADDRESS
+		, A.PHONE1||' - '||PHONE2||' - '||PHONE3 PHONE
+		, A.LAST_LOGIN
+		, A.USER_STATUS
+		FROM TBL_MEMBER_ALIVE A
+		WHERE A.ID = #{ id }
+	</select>
+	
+	<!-- MemberRest전체 조회 쿼리 -->
+	<select id="selectAllRestMemberList" resultMap="memberAliveResultMap">
+
+		SELECT
+		ID
+		, NAME
+		, LAST_LOGIN
+		, ENROLL_DATE
+		FROM TBL_MEMBER_ALIVE
+		WHERE USER_STATUS = 'R'
+		ORDER BY ENROLL_DATE
+	</select>
+
+	<!-- 휴면회원 -> 일반회원 전환 -->
+	<update id="updateRestMember" parameterType="com.nndi.model.commondto.MemberAliveDTO">
+		UPDATE
+		TBL_MEMBER_ALIVE
+		SET USER_STATUS ='A'
+		WHERE
+		USER_STATUS='R'
+		AND ID = #{ id }
+	</update>
+	
+	<!-- 해당 회원 도서대출내역 -->
+	<select id="memberRentBookList" parameterType="java.lang.String" resultMap="BookrentAndInfoAndKindsMap">
+		SELECT 
+		       A.RENT_NUM
+		     , A.CODE
+		     , B.NAME
+		     , B.WRITER
+		     , B.PUBLISHER
+		     , B.KINDS_CODE
+		     , C.KINDS
+		     , A.MEM_ID
+		     , A.RENT_DATE
+		     , A.RENT_DATE + 7 AS "RETURN_DATE"
+		  FROM TBL_BOOK_RENT A
+		  LEFT OUTER JOIN TBL_BOOK_INFO B ON (A.CODE = B.CODE)
+ 		  LEFT OUTER JOIN TBL_BOOK_KINDS C ON (B.KINDS_CODE = C.KINDS_CODE)
+		 WHERE A.MEM_ID = #{ memId }
+	</select>
+
+	<!-- 해당 회원 수강내역 확인 -->
+	<select id="memberClasList" parameterType="java.lang.String" resultMap="ClassMemberAndClassMap">
+		SELECT
+		       A.ID
+		     , A.CLS_NUM
+		     , B.CLS_NAME
+		     , B.CEN_NAME
+		     , B.CLS_CATEGORY_NAME
+		     , B.CLS_START_DAY
+		     , B.CLS_END_DAY
+		     , A.REFUND_YN
+		  FROM TBL_CLASS_MEMBER A
+		  LEFT OUTER JOIN TBL_CLASS B ON (A.CLS_NUM = B.CLS_NUM)
+		 WHERE A.ID = #{ memId }
+	</select>
+
+</mapper>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.classes.ClassMapper">
+
+	<!-- TeacherDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.TeacherDTO" id="TeacherMap">
+		<id property="no" column="TCR_NO"/>
+		<result property="name" column="TCR_NAME"/>
+		<result property="gender" column="TCR_GENDER"/>
+		<result property="birth" column="TCR_BIRTH"/>
+		<result property="email" column="TCR_EMAIL"/>
+		<result property="phone" column="TCR_PHONE"/>
+		<result property="address" column="TCR_ADDRESS"/>
+		<result property="contractYn" column="TCR_CONTRACT_YN"/>
+	</resultMap>
+	
+	<!-- CenterManagementDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.CenterManagementDTO" id="CenterManagementMap">
+		<id property="cenName" column="CEN_NAME"/>
+		<result property="centerKindName" column="CEN_KINDS_NAME"/>
+		<result property="cenUseYn" column="CEN_USE_YN"/>
+		<result property="cenCapacity" column="CEN_CAPACITY"/>
+	</resultMap>
+
+	<!-- ClassDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.ClassDTO" id="classMap">
+		<id property="clsNum" column="CLS_NUM"/>
+		<result property="tcrNo" column="TCR_NO"/>
+		<result property="cenName" column="CEN_NAME"/>
+		<result property="clsName" column="CLS_NAME"/>
+		<result property="clsApplyCnt" column="CLS_APPLY_CNT"/>
+		<result property="clsMaxCnt" column="CLS_MAX_CNT"/>
+		<result property="clsStartDay" column="CLS_START_DAY"/>
+		<result property="clsEndDay" column="CLS_END_DAY"/>
+		<result property="clsExplain" column="CLS_EXPLAIN"/>
+		<result property="clsTime" column="CLS_TIME"/>
+		<result property="clsCost" column="CLS_COST"/>
+		<result property="clsDay" column="CLS_DAY"/>
+		<result property="clsStartYn" column="CLS_START_YN"/>
+		<result property="clsCategoryName" column="CLS_CATEGORY_NAME"/>
+		<result property="clsRecoAge" column="CLS_RECO_AGE"/>
+		<result property="clsRunTime" column="CLS_RUN_TIME"/>
+	</resultMap>
+	
+	<!-- ClassesAndTeacherAndCenterDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.joindto.admin.classes.ClassesAndTeacherAndCenterDTO" id="classAndTeacherAndCenterMap">
+		<id property="clsNum" column="CLS_NUM"/>
+		<result property="tcrNo" column="TCR_NO"/>
+		<result property="cenName" column="CEN_NAME"/>
+		<result property="clsName" column="CLS_NAME"/>
+		<result property="clsApplyCnt" column="CLS_APPLY_CNT"/>
+		<result property="clsMaxCnt" column="CLS_MAX_CNT"/>
+		<result property="clsStartDay" column="CLS_START_DAY"/>
+		<result property="clsEndDay" column="CLS_END_DAY"/>
+		<result property="clsExplain" column="CLS_EXPLAIN"/>
+		<result property="clsTime" column="CLS_TIME"/>
+		<result property="clsCost" column="CLS_COST"/>
+		<result property="clsDay" column="CLS_DAY"/>
+		<result property="clsStartYn" column="CLS_START_YN"/>
+		<result property="clsCategoryName" column="CLS_CATEGORY_NAME"/>
+		<result property="clsRecoAge" column="CLS_RECO_AGE"/>
+		<result property="clsRunTime" column="CLS_RUN_TIME"/>
+		<association property="teacher" resultMap="TeacherMap"/>
+		<association property="center" resultMap="CenterManagementMap"/>
+	</resultMap>
+	
+	
+	<!-- 강좌 전체 조회 쿼리 -->
+	<select id="selectAllClassList" resultMap="classAndTeacherAndCenterMap">
+		SELECT
+		       A.CLS_NUM
+		     , A.TCR_NO
+		     , B.TCR_NAME
+		     , B.TCR_GENDER
+		     , A.CEN_NAME
+		     , C.CEN_KINDS_NAME
+		     , A.CLS_NAME
+		     , A.CLS_APPLY_CNT
+		     , A.CLS_MAX_CNT
+		     , A.CLS_START_DAY
+		     , A.CLS_END_DAY
+		     , A.CLS_EXPLAIN
+		     , A.CLS_TIME
+		     , A.CLS_COST
+ 		     , A.CLS_DAY
+		     , A.CLS_START_YN
+		     , A.CLS_CATEGORY_NAME
+		     , A.CLS_RECO_AGE
+		     , A.CLS_RUN_TIME
+		  FROM TBL_CLASS A
+		  LEFT OUTER JOIN TBL_TEACHER B ON (A.TCR_NO = B.TCR_NO)
+		  LEFT OUTER JOIN TBL_CENTER_MANAGEMENT C ON (A.CEN_NAME = C.CEN_NAME)
+		 ORDER BY A.CLS_START_DAY ASC
+	</select>
+	
+	<!-- 강좌 상세 조회 쿼리 -->
+	<select id="selectOneByNumClass" parameterType="_int" resultMap="classAndTeacherAndCenterMap">
+		SELECT
+		       A.CLS_NUM
+		     , A.TCR_NO
+		     , B.TCR_NAME
+		     , B.TCR_GENDER
+		     , A.CEN_NAME
+		     , C.CEN_KINDS_NAME
+		     , A.CLS_NAME
+		     , A.CLS_APPLY_CNT
+		     , A.CLS_MAX_CNT
+		     , A.CLS_START_DAY
+		     , A.CLS_END_DAY
+		     , A.CLS_EXPLAIN
+		     , A.CLS_TIME
+		     , A.CLS_COST
+ 		     , A.CLS_DAY
+		     , A.CLS_START_YN
+		     , A.CLS_CATEGORY_NAME
+		     , A.CLS_RECO_AGE
+		     , A.CLS_RUN_TIME
+		  FROM TBL_CLASS A
+		  LEFT OUTER JOIN TBL_TEACHER B ON (A.TCR_NO = B.TCR_NO)
+		  LEFT OUTER JOIN TBL_CENTER_MANAGEMENT C ON (A.CEN_NAME = C.CEN_NAME)
+		 WHERE A.CLS_NUM = #{ num }
+	</select>
+	
+	<!-- /* 강좌 수정, 등록시 강사 존재여부 확인 */ -->
+	<select id="selectTeacher" parameterType="string" resultMap="TeacherMap">
+		SELECT 
+		       A.TCR_NO
+		     , A.TCR_NAME
+		  FROM TBL_TEACHER A
+		 WHERE A.TCR_NAME = #{ tcrName }
+	</select>
+	
+	<!-- 강좌 수정 -->
+	<update id="updateClass" parameterType="com.nndi.model.commondto.ClassDTO">
+		UPDATE
+		       TBL_CLASS A
+		   SET A.CLS_MAX_CNT = #{ clsMaxCnt }
+		     , A.CLS_START_DAY = #{ clsStartDay }
+			 , A.CLS_END_DAY = #{ clsEndDay }
+			 , A.CLS_EXPLAIN = #{ clsExplain }
+			 , A.CLS_TIME = #{ clsTime }
+			 , A.CLS_COST = #{ clsCost }
+			 , A.CLS_DAY = #{ clsDay }
+			 , A.CLS_START_YN = #{ clsStartYn }
+			 , A.CLS_RUN_TIME = #{ clsRunTime }
+		 WHERE A.CLS_NUM =  #{ clsNum }
+	</update>
+	
+	<!-- 강좌 삭제 -->
+	<delete id="deleteClass" parameterType="_int">
+		DELETE 
+		  FROM TBL_CLASS A
+		 WHERE A.CLS_NUM = #{ num }
+	</delete>
+	
+	<!-- 강좌 등록 -->
+	<insert id="insertClass" parameterType="com.nndi.model.commondto.ClassDTO" >
+		INSERT 
+		  INTO TBL_CLASS
+		VALUES 
+		(
+		  SEQ_CLASS_CLS_NUM.NEXTVAL
+		, #{ tcrNo }
+		, #{ cenName }
+		, #{ clsName }
+		, DEFAULT
+		, #{ clsMaxCnt }
+		, #{ clsStartDay }
+		, #{ clsEndDay }
+		, #{ clsExplain }
+		, #{ clsTime }
+		, #{ clsCost }
+		, #{ clsDay }
+		, DEFAULT
+		, #{ clsCategoryName }
+		, #{ clsRecoAge } 
+		, #{ clsRunTime } 
+		)
+	</insert>
+</mapper>

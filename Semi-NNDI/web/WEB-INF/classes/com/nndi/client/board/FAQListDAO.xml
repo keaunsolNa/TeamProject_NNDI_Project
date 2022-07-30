@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.client.board.FAQListDAO">
+
+     <resultMap type="com.nndi.model.commondto.FAQDTO" id="FAQMap">
+     		<id property="num" column="NUM"/>
+     		<result property="managerId" column="MANAGER_ID"/>
+     		<result property="cateNum" column="CATE_NUM"/>
+     		<result property="title" column="TITLE"/>
+			<result property="content" column="CONTENT"/>     		
+			<result property="hits" column="HITS"/>   
+     </resultMap>     
+     
+     
+ <!-- 자주 묻는 질문 전체 조회 -->    
+ <select id="FAQlist" resultMap="FAQMap">
+SELECT
+       NUM
+     , MANAGER_ID
+     , CATE_NUM
+     , TITLE
+     , CONTENT
+     , HITS 
+  FROM TBL_POST_FAQ
+ ORDER BY NUM 
+ </select>
+ 
+ <!-- 자주 묻는 질문 상세 조회 -->    
+ <select id="FAQListDetail" resultMap="FAQMap">
+SELECT
+       NUM
+     , MANAGER_ID
+     , CATE_NUM
+     , TITLE
+     , CONTENT
+     , HITS 
+  FROM TBL_POST_FAQ 
+		 WHERE NUM = #{ num } 
+ </select>
+ 
+ <update id="incrementFAQ">
+ 		UPDATE
+               TBL_POST_FAQ A
+ 		   SET A.HITS = (SELECT B.HITS
+ 		                   FROM TBL_POST_FAQ B
+ 		                  WHERE B.NUM = #{ num }
+ 		                ) +1
+  		WHERE A.NUM = #{ num }
+ 		  
+ </update>
+</mapper>

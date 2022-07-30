@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.client.Account.AccountMapper">
+
+	<!-- MemberAlive ResultMap, typeAlias = AliveDTO -->
+	<resultMap type="AliveDTO" id="memberAliveResultMap">
+		<id property="id" column="ID"/>
+		<result property="idQueNum" column="ID_QUE_NUM"/>
+		<result property="phone1" column="PHONE1"/>
+		<result property="phone2" column="PHONE2"/>
+		<result property="phone3" column="PHONE3"/>
+		<result property="email1" column="EMAIL1"/>
+		<result property="email2" column="EMAIL2"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="address2" column="ADDRESS2"/>
+		<result property="address3" column="ADDRESS3"/>
+		<result property="pwd" column="PWD"/>
+		<result property="name" column="NAME"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="idAnswer" column="ID_ANSWER"/>
+		<result property="gender" column="GENDER"/>
+		<result property="lastLogin" column="LAST_LOGIN"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="outDate" column="OUT_DATE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+	</resultMap>
+
+	<!-- Manager ResultMap, typeAlias = ManagerDTO -->
+	<resultMap type="ManagerDTO" id="ManagerlistResultMap">
+		<id property="managerId" column="MANAGER_ID"/>
+		<result property="pwd" column="PWD"/>
+		<result property="managerName" column="MANAGER_NAME"/>
+	</resultMap>
+	
+	<!-- Insert AccountMember  -->
+	<insert id="accountMember" parameterType="AliveDTO">
+		INSERT 
+		  INTO TBL_MEMBER_ALIVE A
+		(
+		  A.ID
+		, A.ID_QUE_NUM
+		, A.PHONE1
+		, A.PHONE2
+		, A.PHONE3
+		, A.EMAIL1
+		, A.EMAIL2
+		, A.ADDRESS1
+		, A.ADDRESS2
+		, A.ADDRESS3
+		, A.PWD
+		, A.NAME
+		, A.BIRTH
+		, A.ID_ANSWER
+		, A.GENDER
+		, A.LAST_LOGIN
+		, A.USER_STATUS
+		, A.OUT_DATE
+		, A.ENROLL_DATE
+		)
+		VALUES
+		(
+		  #{ id }
+		, #{ idQueNum }
+		, #{ phone1 }
+		, #{ phone2 }
+		, #{ phone3 }
+		, #{ email1 }
+		, #{ email2 }
+		, #{ address1 }
+		, #{ address2 }
+		, #{ address3 }
+		, #{ pwd }
+		, #{ name }
+		, #{ birth }
+		, #{ idAnswer }
+		, #{ gender }
+		, SYSDATE
+		, 'A'
+		, NULL
+		, DEFAULT
+		)
+	</insert>
+
+	<!-- Insert AccountManager -->
+	<insert id="accountManager" parameterType="ManagerDTO">
+		INSERT
+		  INTO TBL_MANAGER A
+		(
+		  A.MANAGER_ID
+		, A.PWD
+		, A.MANAGER_NAME  
+		)  
+		VALUES
+		(
+		  #{ managerId }
+		, #{ pwd }
+		, #{ managerName }  
+		)
+	</insert>
+
+	<!-- Update Member -->
+  	<update id="updateMember" parameterType="AliveDTO">
+		UPDATE
+			   TBL_MEMBER_ALIVE A
+		   SET 
+			   A.PHONE1 = #{ phone1 }
+			 , A.PHONE2 = #{ phone2 }
+			 , A.PHONE3 = #{ phone3 }
+			 , A.EMAIL1 = #{ email1 }
+			 , A.EMAIL2 = #{ email2 }
+		 	 , A.ADDRESS1 = #{ address1 }
+			 , A.ADDRESS2 = #{ address2 }
+			 , A.ADDRESS3 = #{ address3 }
+			 , A.PWD = #{ pwd }
+			 , A.ID_ANSWER = #{ idAnswer}
+		 WHERE A.ID = #{ id }	 
+	</update> 
+ 
+ 	<!-- Delete Member -->
+	<update id="deleteMember" parameterType="AliveDTO">
+		UPDATE
+			   TBL_MEMBER_ALIVE A
+		   SET 
+		       A.USER_STATUS = 'O'
+		 WHERE A.ID = #{ id }       
+		       
+	</update>
+</mapper>

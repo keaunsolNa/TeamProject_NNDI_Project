@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+  <mapper namespace="com.nndi.client.member_info.rent.MyRentMapper">
+  
+  <!-- RentRequestSQL DTO -->
+ 	<resultMap type="com.nndi.model.commondto.RentRequestSQLDTO" id="myRentRequestResultMap">
+ 		<id property="num" column="POST_NUM"/>
+ 		<result property="centerName" column="CENTER_NAME"/>
+ 		<result property="managerId" column="MANAGER_ID"/>
+ 		<result property="memId" column="MEM_ID"/>
+ 		<result property="rentReqYn" column="RENT_REQ_YN"/>
+ 		<result property="rentCost" column="RENT_COST"/>
+ 		<result property="rentPayYn" column="RENT_PAY_YN"/>
+ 		<result property="rentRefYn" column="RENT_REF_YN"/>
+ 		<result property="rentStart" column="RENT_START"/>
+ 		<result property="rentEnd" column="RENT_END"/>
+ 	</resultMap>
+ 	
+ 	<!-- RentRequestSQLAndCenterManagement DTO -->
+ 	<resultMap type="com.nndi.model.joindto.client.member_info.rent.RentRequestSQLAndCenterManagementDTO" id="centerNameResultMap">
+ 		<id property="num" column="POST_NUM"/>
+ 		<result property="centerName" column="CENTER_NAME"/>
+ 		<result property="managerId" column="MANAGER_ID"/>
+ 		<result property="memId" column="MEM_ID"/>
+ 		<result property="rentReqYn" column="RENT_REQ_YN"/>
+ 		<result property="rentCost" column="RENT_COST"/>
+ 		<result property="rentPayYn" column="RENT_PAY_YN"/>
+ 		<result property="rentRefYn" column="RENT_REF_YN"/>
+ 		<result property="rentStart" column="RENT_START"/>
+ 		<result property="rentEnd" column="RENT_END"/>
+ 		<association property="centerManagement" javaType="com.nndi.model.commondto.CenterManagementDTO">
+	 		<id property="cenName" column="CEN_NAME"/>
+	 		<result property="centerKindName" column="CEN_KINDS_NAME"/>
+	 		<result property="cenUseYn" column="CEN_USE_YN"/>
+	 		<result property="cenCapacity" column="CEN_CAPACITY"/>
+ 		</association>
+ 	</resultMap>
+ 	
+ 	<!-- 마이페이지 대관신청 조회 (추후 로그인 정보 불러와서 진행하도록 수정, parameterType 넣어서 변경예정) -->
+ 	<select id="selectMyRentRequest" parameterType="string" resultMap="centerNameResultMap">
+ 		SELECT
+               A.POST_NUM
+ 		     , A.CENTER_NAME
+             , B.CEN_KINDS_NAME
+ 		     , A.MANAGER_ID
+ 		     , A.MEM_ID
+ 		     , A.RENT_REQ_YN
+ 		     , A.RENT_COST
+ 		     , A.RENT_PAY_YN
+ 		     , A.RENT_REF_YN
+ 		     , A.RENT_START
+ 		     , A.RENT_END
+ 		  FROM TBL_RENT_REQUEST A
+          JOIN TBL_CENTER_MANAGEMENT B ON(A.CENTER_NAME = B.CEN_NAME)
+ 		 WHERE MEM_ID = #{ memId }
+ 		
+ 	</select>
+ 	
+ 	<!-- 마이페이지 대관 환불내역 조회  -->
+  	<select id="selectRentRefund" parameterType="string" resultMap="centerNameResultMap">
+ 		SELECT
+               A.POST_NUM
+ 		     , A.CENTER_NAME
+             , B.CEN_KINDS_NAME
+ 		     , A.MANAGER_ID
+ 		     , A.MEM_ID
+ 		     , A.RENT_REQ_YN
+ 		     , A.RENT_COST
+ 		     , A.RENT_PAY_YN
+ 		     , A.RENT_REF_YN
+ 		     , A.RENT_START
+ 		     , A.RENT_END
+ 		  FROM TBL_RENT_REQUEST A
+          JOIN TBL_CENTER_MANAGEMENT B ON(A.CENTER_NAME = B.CEN_NAME)
+ 		 WHERE A.MEM_ID = #{ memId }
+           AND A.RENT_REF_YN = 'Y'
+ 		
+ 	</select>
+ 	
+ 	<!-- 대관신청 철회 가능 리스트 조회 -->
+	<select id="selectRentCancel" parameterType="string" resultMap="centerNameResultMap">
+ 		SELECT
+               A.POST_NUM
+ 		     , A.CENTER_NAME
+             , B.CEN_KINDS_NAME
+ 		     , A.MANAGER_ID
+ 		     , A.MEM_ID
+ 		     , A.RENT_REQ_YN
+ 		     , A.RENT_COST
+ 		     , A.RENT_PAY_YN
+ 		     , A.RENT_REF_YN
+ 		     , A.RENT_START
+ 		     , A.RENT_END
+ 		  FROM TBL_RENT_REQUEST A
+          JOIN TBL_CENTER_MANAGEMENT B ON(A.CENTER_NAME = B.CEN_NAME)
+ 		 WHERE A.MEM_ID = #{ memId }
+           AND A.RENT_REF_YN = 'N'
+           AND A.RENT_PAY_YN = 'N'
+           AND A.RENT_COST = '0'
+     </select> 	
+     
+     <!-- 대관 신청철회 Update 쿼리문 -->
+     <update id="updateCancel" parameterType="_int">
+     	UPDATE
+               TBL_RENT_REQUEST A
+     	   SET A.RENT_PAY_YN = 'Y'
+     	 WHERE A.POST_NUM = #{ num }
+     </update>
+     
+     <!-- 대관신청 환불 가능 리스트 조회 -->
+	<select id="selectRefundUpdate" parameterType="string" resultMap="centerNameResultMap">
+ 		SELECT
+               A.POST_NUM
+ 		     , A.CENTER_NAME
+             , B.CEN_KINDS_NAME
+ 		     , A.MANAGER_ID
+ 		     , A.MEM_ID
+ 		     , A.RENT_REQ_YN
+ 		     , A.RENT_COST
+ 		     , A.RENT_PAY_YN
+ 		     , A.RENT_REF_YN
+ 		     , A.RENT_START
+ 		     , A.RENT_END
+ 		  FROM TBL_RENT_REQUEST A
+          JOIN TBL_CENTER_MANAGEMENT B ON(A.CENTER_NAME = B.CEN_NAME)
+ 		 WHERE A.MEM_ID = #{ memId }
+           AND A.RENT_REF_YN = 'N'
+           AND A.RENT_PAY_YN = 'N'
+           AND A.RENT_REQ_YN = 'Y'
+     </select>
+
+	 <!-- 대관 신청환불 Update 쿼리문 -->
+     <update id="updateRefund" parameterType="_int">
+     	UPDATE
+               TBL_RENT_REQUEST A
+     	   SET A.RENT_PAY_YN = 'Y'
+     	 WHERE A.POST_NUM = #{ num }
+     </update>
+ 	
+  
+  </mapper>

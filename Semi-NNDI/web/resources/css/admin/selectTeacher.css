@@ -1,0 +1,39 @@
+table {
+    margin-left: 2%;
+    width: 95%;
+    border: 1px solid #ddd;
+}
+
+.button{
+    border-radius: 8px;
+    color: white;
+    padding: 5px 10px;
+    background-color: #9d9adf;
+    border: 1px solid rgb(105, 105, 105);
+    margin-bottom: 3%;
+}
+
+.button:hover{
+    background-color: #605d93;
+    border: 1px solid rgb(105, 105, 105);
+}
+
+thead tr{
+    border: 1px solid rgb(188, 188, 188);
+    height: 40px;
+    text-align: center;
+}
+
+td {
+    border: 1px solid rgb(188, 188, 188);
+    text-align: center;
+    padding: 10px;
+}
+
+tbody tr:hover{
+    background-color: #DDDCFC;
+}
+
+.input1{
+	width: 40% !important;
+}

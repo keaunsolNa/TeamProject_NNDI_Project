@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.refund.RefundMapper">
+
+	<!-- RentRefunViewDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.joindto.admin.refund.RentRefunViewDTO" id="rentRefunViewDTO">
+		<id property="postNum" column="POST_NUM"/>
+		<result property="name" column="NAME"/>
+		<result property="cenKindsname" column="CEN_KINDS_NAME"/>
+		<result property="rentCost" column="RENT_COST"/>
+		<result property="rentPayYn" column="RENT_PAY_YN"/>
+		<result property="rentRefYn" column="RENT_REF_YN"/>
+		<result property="rentStart" column="RENT_START"/>
+		<result property="rentEnd" column="RENT_END"/>
+	</resultMap>
+	
+	<!--  ClassRefundViewDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.joindto.admin.refund.RentClassViewDTO" id="RentClassViewDTO">
+		<result property="clsNum" column="CLS_NUM"/>
+		<result property="name" column="NAME"/>
+		<result property="id" column="ID"/>
+		<result property="clsName" column="CLS_NAME"/>
+		<result property="tcrName" column="TCR_NAME"/>
+		<result property="clsPrice" column="CLS_PRICE"/>
+		<result property="refundYn" column="REFUND_YN"/>
+		<result property="clsPayDay" column="CLS_PAY_DAY"/>
+	</resultMap>
+
+
+	<!-- 대관 환불 내역 전체 리스트 조회 -->
+	<select id="selectAllRefundList" resultMap="rentRefunViewDTO">
+		SELECT
+		       A.POST_NUM
+		     , A.NAME  
+		     , A.CEN_KINDS_NAME
+		     , A.RENT_COST
+		     , A.RENT_PAY_YN
+		     , A.RENT_REF_YN
+		     , A.RENT_START
+		     , A.RENT_END
+		  FROM VIEW_RENT_REFUND A
+		 WHERE A.RENT_PAY_YN = 'Y' 
+	</select>
+	
+	<!-- 강좌 환불 내역 전체 리스트 조회 -->
+	<select id="selectAllClassRefundList" resultMap="RentClassViewDTO">
+		SELECT
+    		   A.CLS_NUM
+   		 	 , A.NAME  
+    		 , A.ID  
+    		 , A.CLS_NAME
+    		 , A.TCR_NAME
+    		 , A.CLS_PRICE
+     		 , A.REFUND_YN
+     		 , A.CLS_PAY_DAY
+     	  FROM VIEW_CLASS_REFUND A	
+	</select>
+	
+	<!-- 대관 환불 승인 Update -->
+	<update id="UpdateRefund" parameterType="_int">
+		UPDATE
+			   TBL_RENT_REQUEST A
+		   SET RENT_REF_YN = 'Y'
+		 WHERE A.POST_NUM = ${ postNum } 	   	
+	</update>
+	
+	<!-- 강좌 환불 승인 Update -->
+	<update id="UpdateClassRefund" parameterType="_int">
+		UPDATE
+			   TBL_CLASS_MEMBER A
+		   SET A.REFUND_YN = 'Y'
+		 WHERE A.CLS_NUM = ${ num }    	
+	</update>
+	
+	<!-- 대관 환불 승인 취소 Update -->
+	<update id="updateClassRefundCancel" parameterType="_int">
+		UPDATE
+			   TBL_RENT_REQUEST A
+				   SET RENT_REF_YN = 'N'
+				     , RENT_PAY_YN = 'N'
+		 WHERE A.POST_NUM = ${ num } 	   	
+	</update>
+</mapper>
+

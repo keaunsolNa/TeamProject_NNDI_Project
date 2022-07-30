@@ -1,0 +1,77 @@
+.post.title{
+    width: 85%;
+    height: 100px;
+    margin-bottom: 5px;
+    background-color:  #DDDCFC;
+}
+
+.top{
+    margin-top: 10px;
+    text-align: center;
+    font-weight:bolder;
+    color: rgb(106, 106, 106);
+}
+
+.new,.total,.dead{
+    float: right;
+    width: 40%;
+    height: 350px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin-right: 1.5%;
+    margin-top: 40px;
+    margin-bottom: 3%;
+}
+
+.posttop{
+    float: left;
+    width: 40%;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    margin-left: 1.5%;
+    margin-top: 40px;
+    margin-bottom: 3%;
+}
+
+.to {
+    text-align: center;
+    padding: 15px;
+}
+
+table{
+    text-align: center;
+    width: 95%;
+    border: 1px solid rgb(105, 105, 105);
+    margin-right: 10px;
+}
+
+thead th{
+    background-color: #d8d7f8;
+    border: 1px solid rgb(105, 105, 105);
+    padding: 5px;
+    color: rgb(105, 105, 105);
+    font-size: medium;
+}
+
+tbody td{
+    border: 1px solid rgb(105, 105, 105);
+    padding: 5px;
+}
+
+.result{
+    color: rgb(255, 109, 109);
+    margin-left: 80px;
+    padding: 20px 8px 12px 0;
+    font-weight: bolder;
+}
+
+.supost{
+    margin-left: 30px;
+    font-size: medium;
+}
+
+.supost2{
+    margin-left: 30px;
+    font-size: medium;
+    height: fit-content;
+}

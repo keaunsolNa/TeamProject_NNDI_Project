@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+button{
+	background-color: rgba(254, 190, 190, 1);
+	color: rgb(255, 255, 255);
+	border: 0px
+}
+
+.FooterButton{
+	float: right;
+	color: rgb(255, 255, 255);
+}
+

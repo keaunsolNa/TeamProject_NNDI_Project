@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.client.book.ClientBookMapper">
+
+<!-- BookInfoDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.BookInfoDTO" id="BookMap">
+  	<id property="code" column="CODE"/>
+  	<result property="KindsCode" column="KINDS_CODE"/>
+  	<result property="name" column="NAME"/>
+  	<result property="writer" column="WRITER"/>
+  	<result property="locationCode" column="LOCATION_CODE"/>
+  	<result property="isbn" column="ISBN"/>
+  	<result property="serchYN" column="SEARCH_YN"/>
+  	<result property="publisher" column="PUBLISHER"/>
+  </resultMap>
+  
+  <!-- 도서 전체 조회 쿼리 -->
+  <select id="selectAllBookList" resultMap="BookMap">
+  	SELECT
+  	       A.CODE 
+  	     , A.NAME 
+  	     , A.WRITER
+  	     , A.LOCATION_CODE
+  	     , A.ISBN
+  	     , A.PUBLISHER
+  	  FROM TBL_BOOK_INFO A
+ 	 WHERE SEARCH_YN = 'Y'
+  </select>
+  
+</mapper>
+
+

@@ -1,0 +1,29 @@
+
+	table {
+		width: 80%;
+		border: 1px solid #444444;
+		border-collapse: collapse;
+	  }
+	  th, td {
+		border: 1px solid #444444;
+		padding: 20px;
+	  }
+
+.caption{
+	font-size: x-large;
+}
+
+section{
+	margin-left: 30%;
+	margin-top: 5%;
+	float: left;
+}
+.buton{
+	margin-top: 10%;
+	margin-left: -100%;
+	width: 200%;
+}
+.cap{
+	margin-left: 35%;
+	margin-top: -10%;
+}

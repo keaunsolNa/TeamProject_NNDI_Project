@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.summing.SummingMapper">
+
+  <!-- PostCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.PostCategoryDTO" id="postCategoryMap">
+  	<id property="cateNum" column="CATE_NUM"/>
+  	<result property="cateKind" column="CATE_KIND"/>
+  </resultMap>
+  
+  <!-- NoticeDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.NoticeDTO" id="NoticeMap">
+  	<id property="num" column="NUM"/>
+  	<result property="managerId" column="MANAGER_ID"/>
+  	<result property="cateNum" column="CATE_NUM"/>
+  	<result property="postDate" column="POST_DATE"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="content" column="CONTENT"/>
+  	<result property="hits" column="HITS"/>
+  	<result property="uploadFileKey" column="UPLOAD_FILE_KEY"/>
+  </resultMap>
+  
+  <!-- FAQDTO reaultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.FAQDTO" id="FAQMap">
+  	<id property="num" column="NUM"/>
+  	<result property="cateNum" column="CATE_NUM"/>
+  	<result property="managerId" column="MANAGER_ID"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="content" column="CONTENT"/>
+  	<result property="hits" column="HITS"/>
+  </resultMap>
+  
+  <!-- QnaDTO reaultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.QnaDTO" id="QNAMap">
+  	<id property="num" column="NUM"/>
+  	<result property="cateNum" column="CATE_NUM"/>
+  	<result property="memId" column="MEM_ID"/>
+  	<result property="managerId" column="MANAGER_ID"/>
+  	<result property="postDate" column="POST_DATE"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="content" column="CONTENT"/>
+  	<result property="answerYn" column="ANSWER_YN"/>
+  	<result property="answerContent" column="ANSWER_CONTENT"/>
+  	<result property="displayYn" column="DISPLAY_YN"/>
+  	<result property="hits" column="HITS"/>
+  </resultMap>
+
+  <!-- ComplainDTO reaultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.ComplainDTO" id="complainMap">
+  	<id property="num" column="NUM"/>
+  	<result property="cateNum" column="CATE_NUM"/>
+  	<result property="memId" column="MEM_ID"/>
+  	<result property="managerId" column="MANAGER_ID"/>
+  	<result property="postDate" column="POST_DATE"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="content" column="CONTENT"/>
+  	<result property="answerYn" column="ANSWER_YN"/>
+  	<result property="answerContent" column="ANSWER_CONTENT"/>
+  	<result property="displayYn" column="DISPLAY_YN"/>
+  	<result property="hits" column="HITS"/>
+  </resultMap>
+  
+  <!-- FAQAndCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.FAQAndCategoryDTO" id="faqAndCateMap">
+  	<id property="num" column="NUM"/>
+  	<result property="cateNum" column="CATE_NUM"/>
+  	<result property="managerId" column="MANAGER_ID"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="content" column="CONTENT"/>
+  	<result property="hits" column="HITS"/>
+  	<association property="category" resultMap="postCategoryMap"/>
+  </resultMap>
+  
+  <!-- NoticeAndPostCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.NoticeAndCategoryDTO" id="noticeAndCateMap">
+  	<id property="num" column="NUM"/>
+  	<result property="managerId" column="MANAGER_ID"/>
+  	<result property="cateNum" column="CATE_NUM"/>
+  	<result property="postDate" column="POST_DATE"/>
+  	<result property="title" column="TITLE"/>
+  	<result property="content" column="CONTENT"/>
+  	<result property="hits" column="HITS"/>
+  	<result property="uploadFileKey" column="UPLOAD_FILE_KEY"/>
+  	<association property="category" resultMap="postCategoryMap"/>
+  </resultMap>
+  
+  <!-- MemberAlive ResultMap, typeAlias = AliveDTO -->
+	<resultMap type="AliveDTO" id="memberAliveResultMap">
+		<id property="id" column="ID"/>
+		<result property="idQueNum" column="ID_QUE_NUM"/>
+		<result property="phone1" column="PHONE1"/>
+		<result property="phone2" column="PHONE2"/>
+		<result property="phone3" column="PHONE3"/>
+		<result property="email1" column="EMAIL1"/>
+		<result property="email2" column="EMAIL2"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="address2" column="ADDRESS2"/>
+		<result property="address3" column="ADDRESS3"/>
+		<result property="pwd" column="PWD"/>
+		<result property="name" column="NAME"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="idAnswer" column="ID_ANSWER"/>
+		<result property="gender" column="GENDER"/>
+		<result property="lastLogin" column="LAST_LOGIN"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="outDate" column="OUT_DATE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+	</resultMap>
+	
+	<!-- MemberDead ResultMap, typeAlias = DeadDTO -->
+	<resultMap type="com.nndi.model.commondto.ClassDTO" id="ClassMap">
+		<id property="clsNum" column="CLS_NUM"/>
+		<result property="tcrNo" column="TCR_NO"/>
+		<result property="cenName" column="CEN_NAME"/>
+		<result property="clsName" column="CLS_NAME"/>
+		<result property="clsApplyCnt" column="CLS_APPLY_CNT"/>
+		<result property="clsMaxCnt" column="CLS_MAX_CNT"/>
+		<result property="clsStartDay" column="CLS_START_DAY"/>
+		<result property="clsEndDay" column="CLS_END_DAY"/>
+		<result property="clsExplain" column="CLS_EXPLAIN"/>
+		<result property="clsTime" column="CLS_TIME"/>
+		<result property="clsCost" column="CLS_COST"/>
+		<result property="clsDay" column="CLS_DAY"/>
+		<result property="clsStartYn" column="CLS_START_YN"/>
+		<result property="clsCategoryName" column="CLS_CATEGORY_NAME"/>
+		<result property="clsRecoAge" column="CLS_RECO_AGE"/>
+		<result property="clsRunTime" column="CLS_RUN_TIME"/>
+	</resultMap>
+  
+  <!-- RentRequestSQLDTO resultMap 생성 -->
+	<resultMap type="com.nndi.model.commondto.RentRequestSQLDTO" id="RentRequestMap">
+		<id property="num" column="POST_NUM"/>
+		<result property="centerName" column="CENTER_NAME"/>
+		<result property="managerId" column="MANAGER_ID"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="rentReqYn" column="RENT_REQ_YN"/>
+		<result property="rentCost" column="RENT_COST"/>
+		<result property="rentPayYn" column="RENT_PAY_YN"/>
+		<result property="rentRefYn" column="RENT_REF_YN"/>
+		<result property="rentStart" column="RENT_START"/>
+		<result property="rentEnd" column="RENT_END"/>
+	</resultMap>
+  
+  <!-- 민원 전체 게시글 조회 -->
+  <select id="selectTotalComplain" resultType="_int">
+  	SELECT 
+  	       COUNT(A.NUM)
+  	  FROM TBL_POST_COMPLAIN A
+  </select>
+  
+  <!-- 민원 답변 게시글 조회 -->
+  <select id="selectComplainRECnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ANSWER_YN)
+  	  FROM TBL_POST_COMPLAIN A
+  	 WHERE A.ANSWER_YN ='Y'
+  </select>
+  
+  <!-- 민원 미답변 게시글 조회 -->
+  <select id="selectComplainNotRECnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ANSWER_YN)
+  	  FROM TBL_POST_COMPLAIN A
+  	 WHERE A.ANSWER_YN ='N'
+  </select>
+  
+  <!-- 문의 전체 게시글 조회 -->
+  <select id="selectQnaTotalcnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.NUM)
+  	  FROM TBL_POST_QUESTION A
+  </select>
+  
+  <!-- 문의 답변 게시글 조회 -->
+  <select id="selectQnaRECnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ANSWER_YN)
+  	  FROM TBL_POST_QUESTION A
+  	 WHERE A.ANSWER_YN ='Y'
+  </select>
+  
+  <!-- 문의 미답변 게시글 조회 -->
+  <select id="selectQnaNotRECnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ANSWER_YN)
+  	  FROM TBL_POST_QUESTION A
+  	 WHERE A.ANSWER_YN ='N'
+  </select>
+  
+  <!-- 자주묻는 질문 조회수 순위 -->
+  <select id="selectFaqHitTops" resultMap="faqAndCateMap">
+  	SELECT
+  	       ROWNUM
+  	     , C.NUM
+  	     , C.TITLE
+  	     , C.CATE_KIND
+  	     , C.HITS
+  	  FROM (SELECT
+  	               A.NUM
+  	             , A.TITLE
+  	             , B.CATE_KIND
+  	             , A.HITS
+  	          FROM TBL_POST_FAQ A
+  	          LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+  	          ORDER BY A.HITS DESC) C
+  	 <![CDATA[
+  	 WHERE ROWNUM < 6
+  	 ]]>
+  </select>
+  
+  <!-- 공지사항 조회수 순위 -->
+  <select id="selectNoticeHitTops" resultMap="noticeAndCateMap">
+  	SELECT
+  	       ROWNUM
+  	     , C.NUM
+  	     , C.TITLE
+  	     , C.CATE_KIND
+  	     , C.HITS
+  	  FROM (SELECT
+  	               A.NUM
+   	             , A.TITLE
+  	             , B.CATE_KIND
+  	             , A.HITS
+  	          FROM TBL_POST_NOTICE A
+  	          LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+  	          ORDER BY A.HITS DESC) C
+  	 <![CDATA[
+  	 WHERE ROWNUM < 6
+  	 ]]>
+  </select>
+  
+  <!-- 현재 활동 회원 수 조회 -->
+  <select id="aliveMembercnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ID)
+  	  FROM TBL_MEMBER_ALIVE A
+  	 WHERE A.USER_STATUS = 'A'
+  </select>
+  
+  <!-- 휴면 회원 수 조회 -->
+  <select id="restMemberCnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ID)
+  	  FROM TBL_MEMBER_ALIVE A
+  	 WHERE A.USER_STATUS = 'R'
+  </select>
+  
+  <!-- 휴면, 활동 회원 전체 조회 -->
+  <select id="allMemberCnt" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ID)
+  	  FROM TBL_MEMBER_ALIVE A
+  	 WHERE A.USER_STATUS IN ('A','R')
+  </select>
+  
+  <!--  탈퇴 회원 통계 -->
+  <select id="deadMemberSumming" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ID)
+  	  FROM TBL_MEMBER_DEAD A
+  </select>
+  
+  <!-- 탈퇴 회원 통계 -->
+  <select id="newMemberSum" parameterType="map" resultType="_int">
+  	SELECT 
+  	       COUNT(A.ID)
+  	  FROM TBL_MEMBER_ALIVE A
+  	 WHERE A.ENROLL_DATE BETWEEN #{ start } AND #{ end }
+  </select>
+  
+  <!-- 최근 문의글 조회 -->
+  <select id="selectQnaList" resultMap="QNAMap">
+  	SELECT
+           ROWNUM
+  	     , A.NUM
+  	     , A.TITLE
+  	     , A.MEM_ID
+  	     , A.MANAGER_ID
+  	     , A.POST_DATE
+  	     , A.HITS
+  	     , A.ANSWER_YN
+  	     , A.ANSWER_CONTENT
+  	  FROM TBL_POST_QUESTION A
+  	 <![CDATA[
+     WHERE ROWNUM <6
+     ]]>
+  	 ORDER BY A.POST_DATE DESC
+  </select>
+  
+  <!-- 최근 가입한 회원 조회 -->
+  <select id="selectMemberList" resultMap="memberAliveResultMap">
+  	SELECT
+           ROWNUM
+  	     , A.ID
+  	     , A.NAME
+  	     , A.LAST_LOGIN
+  	     , A.ENROLL_DATE
+  	  FROM TBL_MEMBER_ALIVE A
+     <![CDATA[
+     WHERE ROWNUM <6
+     ]]>
+  	 ORDER BY A.ENROLL_DATE DESC
+  </select>
+  
+  <!-- 최근 대관 신청한 리스트 조회 -->
+  <select id="selectRentList" resultMap="RentRequestMap">
+  	SELECT
+           ROWNUM
+  	     , A.POST_NUM
+  	     , A.CENTER_NAME
+  	     , A.MEM_ID
+  	     , A.RENT_REQ_YN
+  	     , A.RENT_START
+  	     , A.RENT_END
+  	  FROM TBL_RENT_REQUEST A
+     <![CDATA[
+     WHERE ROWNUM <6
+     ]]>
+  	 ORDER BY A.RENT_START DESC
+  </select>
+  
+  <!-- 최근 강좌 리스트 조회 -->
+  <select id="selectClassList" resultMap="ClassMap">
+  	SELECT
+           ROWNUM
+  	     , A.CLS_NUM
+  	     , A.CEN_NAME
+  	     , A.CLS_NAME
+  	     , A.CLS_APPLY_CNT
+  	     , A.CLS_START_DAY
+  	     , A.CLS_DAY
+  	     , A.CLS_CATEGORY_NAME
+  	     , A.CLS_RUN_TIME
+  	  FROM TBL_CLASS A
+     <![CDATA[
+     WHERE ROWNUM <6
+     ]]>
+  	 ORDER BY A.CLS_START_DAY ASC
+  </select>
+  
+</mapper>

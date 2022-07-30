@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.book.BookMapper">
+
+<!-- BookInfoDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.BookInfoDTO" id="BookMap">
+  	<id property="code" column="CODE"/>
+  	<result property="KindsCode" column="KINDS_CODE"/>
+  	<result property="name" column="NAME"/>
+  	<result property="writer" column="WRITER"/>
+  	<result property="locationCode" column="LOCATION_CODE"/>
+  	<result property="isbn" column="ISBN"/>
+  	<result property="serchYN" column="SEARCH_YN"/>
+  	<result property="publisher" column="PUBLISHER"/>
+  </resultMap>
+  
+  <!-- 도서 전체 조회 쿼리 -->
+  <select id="selectAllBookList" resultMap="BookMap">
+  	SELECT
+  	       A.CODE 
+  	     , A.NAME 
+  	     , A.WRITER
+  	     , A.LOCATION_CODE
+  	     , A.ISBN
+  	     , A.PUBLISHER
+  	  FROM TBL_BOOK_INFO A
+ 	 WHERE SEARCH_YN = 'Y'
+  </select>
+  
+  <!-- 폐기 처리 상태 도서 목록 조회 쿼리 -->
+  <select id="selectDeleteBookList" parameterType="string" resultMap="BookMap">
+	SELECT
+  	       CODE 
+  	     , NAME 
+  	     , WRITER
+  	     , ISBN
+  	     , PUBLISHER
+      FROM TBL_BOOK_INFO
+     WHERE SEARCH_YN = 'N'
+  </select>
+  
+    <!-- 도서 폐기상태 전환 -->
+  <update id="UpdateBook" parameterType="_int">
+    UPDATE
+      	   TBL_BOOK_INFO A
+       SET SEARCH_YN = 'N'
+     WHERE A.CODE = ${ code }  
+  </update>
+  
+  	<!-- 폐기 도서 전환  -->
+  <update id="UpdateBookReturn" parameterType="_int">
+  	UPDATE
+  		   TBL_BOOK_INFO A
+  	   SET SEARCH_YN = 'Y'
+  	 WHERE A.CODE = ${ code }  	   
+  </update>
+</mapper>
+
+

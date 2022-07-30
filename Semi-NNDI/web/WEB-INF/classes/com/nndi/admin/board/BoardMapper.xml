@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.board.BoardMapper">
+
+  <!-- NoticeDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.NoticeDTO" id="NoticeMap">
+     <id property="num" column="NUM"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="hits" column="HITS"/>
+     <result property="uploadFileKey" column="UPLOAD_FILE_KEY"/>
+  </resultMap>
+  
+  <!-- PostCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.PostCategoryDTO" id="postCategoryMap">
+     <id property="cateNum" column="CATE_NUM"/>
+     <result property="cateKind" column="CATE_KIND"/>
+  </resultMap>
+  
+  <!-- NoticeAndPostCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.NoticeAndCategoryDTO" id="noticeAndCateMap">
+     <id property="num" column="NUM"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="hits" column="HITS"/>
+     <result property="uploadFileKey" column="UPLOAD_FILE_KEY"/>
+     <association property="category" resultMap="postCategoryMap"/>
+  </resultMap>
+  
+  <!-- ComplainAndCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.ComplainAndCategoryDTO" id="complainAndCategoyMap">
+     <id property="num" column="NUM"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="memId" column="MEM_ID"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="answerYn" column="ANSWER_YN"/>
+     <result property="answerContent" column="ANSWER_CONTENT"/>
+     <result property="displayYn" column="DISPLAY_YN"/>
+     <result property="hits" column="HITS"/>
+     <association property="category" resultMap="postCategoryMap"/>
+  </resultMap>
+  
+  <!-- AdmireAndCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.AdmireAndCategoryDTO" id="AdmireAndCategoryMap">
+     <id property="num" column="NUM"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="memId" column="MEM_ID"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="answerYn" column="ANSWER_YN"/>
+     <result property="answerContent" column="ANSWER_CONTENT"/>
+     <result property="displayYn" column="DISPLAY_YN"/>
+     <result property="hits" column="HITS"/>
+     <association property="category" resultMap="postCategoryMap"/>
+  </resultMap>
+  
+  <!-- FAQDTO reaultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.FAQDTO" id="allFAQMap">
+     <id property="num" column="NUM"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="hits" column="HITS"/>
+  </resultMap>
+  
+   <!-- FAQAndCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.FAQAndCategoryDTO" id="faqAndCateMap">
+     <id property="num" column="NUM"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="hits" column="HITS"/>
+     <association property="category" resultMap="postCategoryMap"/>
+  </resultMap>
+  
+  <!-- QnaDTO reaultMap 생성 -->
+  <resultMap type="com.nndi.model.commondto.QnaDTO" id="allQNAMap">
+     <id property="num" column="NUM"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="memId" column="MEM_ID"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="answerYn" column="ANSWER_YN"/>
+     <result property="answerContent" column="ANSWER_CONTENT"/>
+     <result property="displayYn" column="DISPLAY_YN"/>
+     <result property="hits" column="HITS"/>
+  </resultMap>
+  
+  <!-- QnaAndCategoryDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.QnaAndCategoryDTO" id="QnaAndCateMap">
+     <id property="num" column="NUM"/>
+     <result property="cateNum" column="CATE_NUM"/>
+     <result property="memId" column="MEM_ID"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="title" column="TITLE"/>
+     <result property="content" column="CONTENT"/>
+     <result property="answerYn" column="ANSWER_YN"/>
+     <result property="answerContent" column="ANSWER_CONTENT"/>
+     <result property="displayYn" column="DISPLAY_YN"/>
+     <result property="hits" column="HITS"/>
+     <association property="category" resultMap="postCategoryMap"/>
+  </resultMap>
+  
+  <!-- TCREmploymentDTO resultMap 생성  -->
+  <resultMap type="com.nndi.model.commondto.TCREmploymentDTO" id="TCREmploymentMap">
+     <id property="num" column="NUM"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="clsNum" column="CLS_NUM"/>
+     <result property="title" column="TITLE"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="empYn" column="EMP_YN"/>
+     <result property="empCondition" column="EMP_CONDITION"/>
+     <result property="empNumber" column="EMP_NUMBER"/>
+     <result property="environment" column="ENVIRONMENT"/>
+     <result property="empProcess" column="EMP_PROCESS"/>
+  </resultMap>
+  
+  <!-- ClassDTO resultMap 생성 -->
+   <resultMap type="com.nndi.model.commondto.ClassDTO" id="classMap">
+      <id property="clsNum" column="CLS_NUM"/>
+      <result property="tcrNo" column="TCR_NO"/>
+      <result property="cenName" column="CEN_NAME"/>
+      <result property="clsName" column="CLS_NAME"/>
+      <result property="clsApplyCnt" column="CLS_APPLY_CNT"/>
+      <result property="clsMaxCnt" column="CLS_MAX_CNT"/>
+      <result property="clsStartDay" column="CLS_START_DAY"/>
+      <result property="clsEndDay" column="CLS_END_DAY"/>
+      <result property="clsExplain" column="CLS_EXPLAIN"/>
+      <result property="clsTime" column="CLS_TIME"/>
+      <result property="clsCost" column="CLS_COST"/>
+      <result property="clsDay" column="CLS_DAY"/>
+      <result property="clsStartYn" column="CLS_START_YN"/>
+      <result property="clsCategoryName" column="CLS_CATEGORY_NAME"/>
+      <result property="clsRecoAge" column="CLS_RECO_AGE"/>
+      <result property="clsRunTime" column="CLS_RUN_TIME"/>
+   </resultMap>
+   
+  <!-- EmpTeacherAndClassDTO resultMap 생성 -->
+  <resultMap type="com.nndi.model.joindto.admin.board.EmpTeacherAndClassDTO" id="EmpTeacherAndClassMap">
+     <id property="num" column="NUM"/>
+     <result property="managerId" column="MANAGER_ID"/>
+     <result property="clsNum" column="CLS_NUM"/>
+     <result property="title" column="TITLE"/>
+     <result property="postDate" column="POST_DATE"/>
+     <result property="empYn" column="EMP_YN"/>
+     <result property="empCondition" column="EMP_CONDITION"/>
+     <result property="empNumber" column="EMP_NUMBER"/>
+     <result property="environment" column="ENVIRONMENT"/>
+     <result property="empProcess" column="EMP_PROCESS"/>
+     <association property="cls" resultMap="classMap"/>
+  </resultMap>
+  
+  <!-- 공지사항 전체 조회 쿼리 -->
+  <select id="selectAllNoticeList" resultMap="noticeAndCateMap">
+     SELECT
+            A.NUM
+          , A.TITLE
+          , A.CATE_NUM
+          , B.CATE_KIND
+          , A.MANAGER_ID
+          , A.POST_DATE
+          , A.HITS
+       FROM TBL_POST_NOTICE A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      ORDER BY A.NUM DESC
+  </select>
+  
+  <!-- 공지사항 상세보기 쿼리 -->
+  <select id="selectOneByNumNotice" parameterType="_int" resultMap="noticeAndCateMap">
+     SELECT
+            A.NUM
+          , A.TITLE
+          , A.CATE_NUM
+          , B.CATE_KIND
+          , A.MANAGER_ID
+          , A.POST_DATE
+          , A.UPLOAD_FILE_KEY
+          , A.CONTENT
+          , A.HITS
+       FROM TBL_POST_NOTICE A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      WHERE A.NUM = #{ num }
+  </select>
+  
+  <!-- 민원 전체 조회 쿼리 -->
+  <select id="selectAllComplainList" resultMap="complainAndCategoyMap">
+     SELECT
+            A.NUM
+          , A.CATE_NUM
+          , B.CATE_KIND
+          , A.TITLE
+          , A.MEM_ID
+          , A.POST_DATE
+          , A.MANAGER_ID
+          , A.ANSWER_YN
+          , A.ANSWER_CONTENT
+          , A.HITS
+       FROM TBL_POST_COMPLAIN A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      ORDER BY A.NUM DESC
+  </select>
+  
+  <!-- 민원 상세보기 쿼리 -->
+  <select id="selectOneByNumComplain" parameterType="_int" resultMap="complainAndCategoyMap">
+     SELECT
+            A.NUM
+          , A.CATE_NUM
+          , B.CATE_KIND
+          , A.TITLE
+          , A.MEM_ID
+          , A.POST_DATE
+          , A.CONTENT
+          , A.MANAGER_ID
+          , A.ANSWER_YN
+          , A.ANSWER_CONTENT
+          , A.HITS
+       FROM TBL_POST_COMPLAIN A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      WHERE A.NUM = #{ num }
+  </select>
+  
+  <!-- 칭찬하기 전체 조회 쿼리 -->
+  <select id="selectAllAdmireList" resultMap="AdmireAndCategoryMap">
+     SELECT
+            A.NUM
+          , A.CATE_NUM
+          , B.CATE_KIND
+          , A.TITLE
+          , A.MEM_ID
+          , A.POST_DATE
+          , A.HITS
+       FROM TBL_POST_ADMIRE A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      ORDER BY A.NUM DESC
+  </select>
+  
+  <!-- 칭찬하기 상세 조회 쿼리 -->
+  <select id="selectOneByNumAdmire" parameterType="_int" resultMap="AdmireAndCategoryMap">
+   SELECT
+            A.NUM
+          , A.CATE_NUM
+          , B.CATE_KIND
+          , A.TITLE
+          , A.CONTENT
+          , A.MEM_ID
+          , A.POST_DATE
+          , A.HITS
+       FROM TBL_POST_ADMIRE A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)  
+      WHERE A.NUM = #{ num }
+  </select>
+  
+  <!-- 민원 답변 쿼리 -->
+  <update id="UpdateComplainRE" parameterType="com.nndi.model.commondto.ComplainDTO">
+     UPDATE 
+            TBL_POST_COMPLAIN A
+        SET A.ANSWER_CONTENT = #{ answerContent }
+          , A.ANSWER_YN = 'Y'
+          , A.MANAGER_ID = #{ managerId }
+      WHERE A.NUM = #{ num }
+  </update>
+  
+  <!-- FAQ 전체 조회 쿼리 -->
+  <select id="selectAllFAQList" resultMap="faqAndCateMap">
+    SELECT 
+           A.NUM
+         , A.MANAGER_ID
+         , A.CATE_NUM
+         , A.TITLE
+         , A.HITS
+         , B.CATE_KIND
+      FROM TBL_POST_FAQ A
+      LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      ORDER BY A.NUM DESC
+      </select>
+      
+  <!-- FAQ 상세보기 쿼리 -->
+  <select id="selectFAQOneByNum" parameterType="_int" resultMap="faqAndCateMap">
+     SELECT 
+           A.NUM
+         , A.MANAGER_ID
+         , A.CATE_NUM
+         , A.TITLE
+         , A.HITS
+         , A.CONTENT
+         , B.CATE_KIND
+      FROM TBL_POST_FAQ A
+      LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      WHERE A.NUM = #{ num }
+  </select>    
+  
+  <!-- Qna 전체 조회 쿼리 -->
+  <select id="selectAllQnaList" resultMap="QnaAndCateMap">
+     SELECT
+            A.NUM
+          , A.TITLE
+          , A.MEM_ID
+          , B.CATE_KIND
+          , A.MANAGER_ID
+          , A.POST_DATE
+          , A.HITS
+          , A.ANSWER_YN
+          , A.ANSWER_CONTENT
+       FROM TBL_POST_QUESTION A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      ORDER BY A.NUM DESC
+  </select>
+  
+  <!-- Qna 상세보기 쿼리 -->
+  <select id="selectQnaOneByNum" parameterType="_int" resultMap="QnaAndCateMap">
+     SELECT
+            A.NUM
+          , A.TITLE
+          , A.MEM_ID
+          , B.CATE_KIND
+          , A.MANAGER_ID
+          , A.POST_DATE
+          , A.HITS
+          , A.ANSWER_YN
+          , A.CONTENT
+          , A.ANSWER_CONTENT
+       FROM TBL_POST_QUESTION A
+       LEFT OUTER JOIN TBL_POST_CATEGORY B ON (A.CATE_NUM = B.CATE_NUM)
+      WHERE A.NUM = #{ num }
+  </select>
+  
+   <!-- Qna 답변 쿼리 -->
+  <update id="UpdateQnaRE" parameterType="com.nndi.model.commondto.QnaDTO">
+     UPDATE 
+            TBL_POST_QUESTION 
+        SET 
+              ANSWER_CONTENT = #{ answerContent }
+          , ANSWER_YN = 'Y'
+          , MANAGER_ID = #{ managerId }
+      WHERE NUM = #{ num }
+  </update>
+
+   <!-- Qna 삭제 쿼리 -->      
+   <delete id="DeleteQnaRE" parameterType="_int">
+     DELETE
+       FROM TBL_POST_QUESTION A
+      WHERE A.NUM = #{ num }  
+   </delete>
+  
+     <!--  FAQ 수정 쿼리 -->
+  <update id="UpdateFaqRE" parameterType="com.nndi.model.commondto.FAQDTO">
+     UPDATE 
+            TBL_POST_FAQ
+        SET 
+              CONTENT = #{ content }
+      WHERE NUM = #{ num }
+  </update>
+
+  <!-- 칭찬하기 삭제 -->
+  <delete id="deleteAdmire" parameterType="_int">
+     DELETE 
+      FROM TBL_POST_ADMIRE A
+     WHERE A.NUM = #{ num }
+  </delete>
+  
+  <!-- 민원 삭제 -->
+  <delete id="deleteComplain" parameterType="_int">
+     DELETE 
+      FROM TBL_POST_COMPLAIN A
+     WHERE A.NUM = #{ num }
+  </delete>
+  
+  <!-- 공지사항 삭제 -->
+  <delete id="deleteNotice" parameterType="_int">
+     DELETE 
+      FROM TBL_POST_NOTICE A
+     WHERE A.NUM = #{ num }
+  </delete>
+ 
+ <!-- FAQ 삭제 -->
+  <delete id="deletefaq" parameterType="_int">
+  	DELETE 
+      FROM TBL_POST_FAQ A
+     WHERE A.NUM = #{ num }
+  </delete>
+  
+  <!-- FAQ 등록 -->
+	<insert id="insertFaq" parameterType="com.nndi.model.commondto.FAQDTO">
+		INSERT 
+		  INTO TBL_POST_FAQ A
+		(
+		  A.NUM
+		, A.MANAGER_ID
+		, A.CATE_NUM
+		, A.TITLE
+		, A.CONTENT
+		, A.HITS
+		)
+		VALUES
+		(
+		  #{ num }
+		, #{ cateNum }
+		, #{ managerId }
+		, #{ title }
+		, #{ content }
+		, #{ hits }
+		)
+	</insert>
+  
+  <!-- Faq 신규 등록 -->
+  <insert id="insertNewFaq" parameterType="com.nndi.model.commondto.FAQDTO">
+  	INSERT
+  	  INTO TBL_POST_FAQ
+  	VALUES 
+  	(
+  	  SEQ_FAQ_POST_NUM.NEXTVAL
+  	, #{ managerId }
+  	, #{ cateNum }
+  	, #{ title }
+  	, #{ content } 
+  	, default
+  	)  
+  </insert>
+  
+  <!-- 강사모집 전체조회 -->
+  <select id="selectAllEmpTeacherList" resultMap="EmpTeacherAndClassMap">
+     SELECT
+            A.NUM
+          , A.CLS_NUM
+          , B.CLS_CATEGORY_NAME
+          , A.TITLE
+          , A.MANAGER_ID
+          , A.POST_DATE
+          , A.EMP_YN
+          , A.EMP_CONDITION
+          , A.EMP_NUMBER
+          , A.ENVIRONMENT
+          , A.EMP_PROCESS
+       FROM TBL_TEACHER_EMPLOYMENT A
+       LEFT OUTER JOIN TBL_CLASS B ON (A.CLS_NUM = B.CLS_NUM)
+      ORDER BY A.NUM DESC
+  </select>
+  
+  <!-- 강사 모집 상세 조회 -->
+  <select id="selectEmpOneByNum" resultMap="EmpTeacherAndClassMap" parameterType="_int">
+     SELECT
+            A.NUM
+          , A.CLS_NUM
+          , B.CLS_CATEGORY_NAME
+          , A.TITLE
+          , A.MANAGER_ID
+          , A.POST_DATE
+          , A.EMP_YN
+          , A.EMP_CONDITION
+          , A.EMP_NUMBER
+          , A.ENVIRONMENT
+          , A.EMP_PROCESS          
+       FROM TBL_TEACHER_EMPLOYMENT A
+       LEFT OUTER JOIN TBL_CLASS B ON (A.CLS_NUM = B.CLS_NUM)
+      WHERE A.NUM = #{ num }
+  </select>
+  
+  <!--  강사모집 삭제  -->
+  <delete id="deleteEmpTcr" parameterType="_int">
+     DELETE 
+      FROM TBL_TEACHER_EMPLOYMENT A
+     WHERE A.NUM = #{ num }
+  </delete>
+  
+  <!-- 강사모집 수정 -->
+  <update id="updateEmpTcr" parameterType="com.nndi.model.commondto.TCREmploymentDTO">
+     UPDATE 
+            TBL_TEACHER_EMPLOYMENT A
+        SET A.MANAGER_ID = #{ managerId }
+          , A.TITLE = #{ title }
+          , A.POST_DATE = SYSDATE
+          , A.EMP_YN = #{ empYn }
+          , A.EMP_CONDITION = #{ empCondition }
+          , A.EMP_NUMBER = #{ empNumber }
+          , A.ENVIRONMENT = #{ environment }
+          , A.EMP_PROCESS = #{ empProcess }
+      WHERE A.NUM = #{ num }
+  </update>
+  
+  <!-- 강사모집 등록 -->
+  <insert id="insertEmpTcr" parameterType="com.nndi.model.commondto.TCREmploymentDTO">
+     INSERT 
+        INTO TBL_TEACHER_EMPLOYMENT
+      VALUES 
+      (
+        SEQ_EMPLOYMENT_POST_NUM.NEXTVAL
+      , #{ managerId }
+      , #{ clsNum }
+      , #{ title }
+      , SYSDATE
+      , #{ empYn }
+      , #{ empCondition }
+      , #{ empNumber }
+      , #{ environment }
+      , #{ empProcess }
+      )
+  </insert>
+
+  <!-- 공지사항 등록 -->
+  <insert id="insertNotice" parameterType="com.nndi.model.commondto.NoticeDTO">
+  	INSERT 
+  	  INTO TBL_POST_NOTICE
+  	VALUES
+  	(
+  	  SEQ_NOTICE_POST_NUM.NEXTVAL 
+  	, #{ managerId }
+  	, #{ cateNum }
+  	, DEFAULT
+  	, #{ title }
+  	, #{ content }
+  	, DEFAULT
+  	, 0
+  	)
+  </insert>
+  
+  <!-- 공지사항 수정 -->
+  <update id="updateNotice" parameterType="com.nndi.model.commondto.NoticeDTO">
+  	UPDATE 
+            TBL_POST_NOTICE A
+        SET A.MANAGER_ID = #{ managerId }
+          , A.POST_DATE = SYSDATE
+          , A.TITLE = #{ title }
+          , A.CONTENT = #{ content }
+      WHERE A.NUM = #{ num }
+  </update>
+</mapper>

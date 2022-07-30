@@ -1,0 +1,482 @@
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.post.list{
+  width: 80%;
+  margin-top: 50px;
+  margin-right: 30px;
+  margin-left: 40px;
+  background-color: white;
+}
+
+.post.title{
+  width: 85%;
+  height: 100px;
+  margin-bottom: 5px;
+  background-color:  #DDDCFC;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+
+.pagination{
+    float: left;
+    margin-left: 600px;
+    margin-top: 50px;
+}
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+  
+.pagination a.active {
+    background-color: rgba(254, 190, 190, 1);;
+    color: white;
+  }
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+.t1{
+    border: 2px solid rgba(254, 190, 190, 0.8);
+}
+
+.t2{
+    border: 2px solid rgba(254, 190, 190, 0.8);
+}
+
+.notice{
+    margin-top: 85.345345px;
+    margin-left: 25%;
+}
+
+.write1{
+    font-size: 40px;
+    text-align: center;
+}
+
+.write2{
+    font-size: 40px;
+    text-align: center;
+}
+
+.min6{
+    width: 100%;
+    border-top: solid 2px rgba(0, 0, 0, 0.4);
+    margin-top: 30px;
+
+}
+
+.min1 textarea{
+    resize: none;
+}
+
+.min2{
+    margin-top: 30px;
+    margin-left: 30%;
+    font-size: 20px;
+}
+
+.min3{
+    width: 100%;
+    border-top: solid 2px rgba(0, 0, 0, 0.4);
+    margin-top: 30px;
+}
+
+
+
+.min4{
+    margin-top: 30px;
+    margin-left: 30%;
+    font-size: 20px;
+    
+}
+
+.min4 textarea{
+    width: 800px;
+    height: 50px;
+}
+
+.min2 textarea{
+    width: 800px;
+    height: 200px;
+}
+
+.jemok{
+    font-size: 20px;
+    margin-left: 30%;
+    margin-top: 10px;
+}
+
+.d1{
+    margin-top: 50px;
+    margin-left: 20%;
+}
+
+.l1{
+    width: 85%;
+    border-top: solid 2px black;
+    margin-top: 30px;
+}
+
+.l2{
+    width: 85%;
+    border-top: solid 2px black;
+    margin-top: 140px;
+}
+
+.r1{
+    float: right;
+    margin-right: 15%;
+    width: 120px;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.r1:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.l3{
+    border: 2px solid black; 
+    padding: 5px; 
+    margin-left: 18%; 
+    margin-right: 2%;
+    width: 55%;
+    border-top: solid 2px black;
+    margin-top: 30px;
+}
+
+.bonin{
+    width: 45%;
+    border-top: solid 2px black;
+    
+}
+
+.hc{
+    margin-left: 30%;
+    margin-top: 40px;
+    
+}
+
+.hc .it {
+	float: left;
+	width: 200px;
+    height: 65px;
+	text-align: center;
+    font-size: 30px;
+	border: 1px solid rgba(254, 190, 190, 1);;
+    padding: 3px;
+
+}
+
+.hc .it.first{
+	background-color: rgba(254, 190, 190, 1);;
+}
+
+.hok{
+    text-decoration: underline;
+    margin-top: 20px;
+    margin-left: 18%;
+    font-size: 40px;
+}
+.jebal{
+   margin-top: 10%;
+   margin-left: 19%;
+}
+
+.phone1{
+    font-size: 30px;
+    text-align: center;
+   
+}
+
+.phone2{
+    text-align: center;
+}
+.ipo{
+    margin-left: 33%;
+}
+
+.ccc{
+    margin-left: 30%;
+    margin-top: 40px;
+}
+
+.okokok{
+    margin-left: 0%;
+}
+.ttt{
+    margin-top: 40px;
+}
+
+.na{
+    font-size: 30px;
+}
+
+.finish{
+    margin-top: 15%;
+    margin-left: 35%;
+}
+
+.ckmain{
+    margin-top: 10%;
+    margin-left: 40%;
+}
+
+.btns{
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 20%;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.btns.add{
+    background-color: rgba(242, 175, 255, 0.15);
+    border: 1px solid #da93e4;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.btns.add:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.btns:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.ccc textarea{
+    resize: none;
+}
+
+.btns3{
+    float: right;
+    margin-right: 640px;
+    margin-top: 10px;
+    width: 10%;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.btns3.add3{
+    background-color: rgba(242, 175, 255, 0.15);
+    margin-right: 10px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    font-weight: bolder;
+}
+
+.btns3.add:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.btns3:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.btns2{
+    width: 20%;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.btns2.add:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.btns2:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.man{
+    width: 120px;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+    margin-left: 70%;
+}
+
+.man:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.vision{
+    width: 120px;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.vision:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.sit1{
+    width: 120px;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+    margin-left: 70%;
+}
+
+.sit1:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.yeah{
+    width: 80px;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.yeah:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.yo{
+
+    margin-left: 37.5%;
+    margin-right: 640px;
+    margin-top: 10px;
+    width: 10%;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.yo.add:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+.yo:hover{
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+}
+
+
+.blueone {
+    border-collapse: collapse;
+  }  
+  .blueone th {
+    padding: 10px;
+    color: #000000;
+    border-bottom: 3px solid #FEBEBE;
+    text-align: left;
+  }
+  .blueone td {
+    color: #6B6B6B;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  .blueone tr:hover td {
+    color: rgba(223, 142, 142, 0.8);
+  }
+  .blueone thead th {
+    text-align: center;
+  }
+
+  .myButton {
+     box-shadow:inset 0px 1px 0px 0px #ffffff;
+     background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+     background-color:#ededed;
+     border-radius:6px;
+     border:1px solid #dcdcdc;
+     display:inline-block;
+     cursor:pointer;
+     color:#777777;
+     font-family:Arial;
+     font-size:15px;
+     font-weight:bold;
+     padding:6px 24px;
+     text-decoration:none;
+     text-shadow:0px 1px 0px #ffffff;
+  }
+  .myButton:hover {
+     background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+     background-color:#dfdfdf;
+  }
+  .myButton:active {
+     position:relative;
+     top:1px;
+  }
+
+  .btn-c{
+    font-size: 19px !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-weight: bold;
+  }
+  
+.r9 {
+    float: right;
+    margin-right: 1%;
+    width: 120px;
+    padding: 10px 8px;
+    border-radius: 6px;
+    background-color: rgba(255, 175, 199, 0.15);
+    border: 1px solid #e493cc;
+    color: rgb(79, 78, 78);
+    font-weight: bolder;
+}
+
+.r9:hover {
+    background-color: #ffc4d1;
+    border: 1px solid #e493a5;
+} 

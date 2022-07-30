@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.client.classes.ClasspaymentMapper">
+
+ <!-- 마이페이지 수강 강좌 조회 매퍼 --> 
+     <resultMap type="com.nndi.model.joindto.client.ClassAndClasspaymentDTO" id="MPclass">
+     		<id property="clsNum" column="CLS_NUM"/>
+     		<result property="id" column="ID"/>
+     		<result property="clsName" column="CLS_NAME"/>
+     		<result property="clsStartDay" column="CLS_START_DAY"/>
+     </resultMap>
+     
+ <!-- 마이페이지 이미 수강 신청한 강좌인지 확인용 --> 
+     <resultMap type="com.nndi.model.commondto.ClassPaymentDTO" id="mypageclasslist">
+     		<result property="id" column="ID"/>
+     		<result property="clsNum" column="CLS_NUM"/>
+     		<result property="clsPrice" column="CLS_PRICE"/>
+     		<result property="clsPayDay" column="CLS_PAY_DAY"/>
+     		<result property="clasPayYn" column="CLS_PAY_YN"/>
+     		<result property="clsPayType" column="CLS_PAY_TYPE"/>
+     </resultMap>            
+     
+<!-- 수강 신청용 -->
+<insert parameterType="com.nndi.model.commondto.ClassMemberDTO" id="classmemberinsert">
+  INSERT
+		  INTO TBL_CLASS_MEMBER
+		(
+		  ID
+		, CLS_NUM
+		, REFUND_YN
+		)
+		VALUES
+		(
+		  #{id}
+		, #{clsNum}
+		, 'N'
+		)
+</insert>
+
+<!-- 수강 신청용2 -->
+<insert parameterType="com.nndi.model.commondto.ClassPaymentDTO" id="classpaymentinsert">
+   INSERT
+		  INTO TBL_CLASS_PAYMENT
+		(
+		  ID
+		, CLS_NUM
+		, CLS_PRICE
+		, CLS_PAY_DAY
+		, CLS_PAY_YN
+		, CLS_PAY_TYPE
+		)
+		VALUES
+		(
+		  #{id}
+		, #{clsNum}
+		, #{clsPrice}
+		, SYSDATE
+		, 'Y'
+		, '무통장 입금'
+		)
+</insert>
+
+<!-- 수강 취소용 1 -->
+<update parameterType="com.nndi.model.commondto.ClassMemberDTO" id="classmembercancel">
+    UPDATE TBL_CLASS_MEMBER
+       SET 
+           REFUND_YN = 'Y'
+     WHERE ID = #{id}
+       AND CLS_NUM = #{clsNum}
+</update>
+
+<!-- 수강 취소용 2 -->
+<update parameterType="com.nndi.model.commondto.ClassPaymentDTO" id="classpaymentcancel">
+   	UPDATE TBL_CLASS_PAYMENT
+       SET 
+	       CLS_PAY_YN = 'N'
+	 WHERE ID = #{id} 
+       AND CLS_NUM = #{clsNum}
+</update>
+
+<!-- 마이페이지 강좌 조회용  -->
+<select id="MypageclassList" parameterType="String" resultMap="MPclass">
+	SELECT 
+		   A.ID	
+	     , A.CLS_NUM     
+	     , B.CLS_NAME  
+	     , B.CLS_START_DAY  
+	  FROM TBL_CLASS_PAYMENT A
+	  JOIN TBL_CLASS B ON (A.CLS_NUM = B.CLS_NUM)
+	 WHERE A.ID = #{loginId}
+	   AND A.CLS_PAY_YN = 'Y'
+</select>
+
+<select id="clslist" parameterType="com.nndi.model.commondto.ClassPaymentDTO" resultMap="mypageclasslist">
+	SELECT 
+	       ID
+	     , CLS_NUM
+	     , CLS_PRICE
+	     , CLS_PAY_DAY
+	     , CLS_PAY_YN
+	     , CLS_PAY_TYPE
+	  FROM TBL_CLASS_PAYMENT
+	 WHERE ID = #{id} 
+       AND CLS_NUM = #{clsNum}
+</select>
+
+<!-- 인원수 늘리는 쿼리 -->
+<update id="classplus" parameterType="com.nndi.model.commondto.ClassPaymentDTO">
+	UPDATE TBL_CLASS A
+	   SET 
+	       A.CLS_APPLY_CNT = (SELECT B.CLS_APPLY_CNT
+	                            FROM TBL_CLASS B
+	                           WHERE B.CLS_NUM= #{clsNum}) + 1
+	 WHERE CLS_NUM = #{clsNum}    
+</update>
+
+<!-- 인원수 줄이는 쿼리 -->
+<update id="classminus" parameterType="com.nndi.model.commondto.ClassPaymentDTO">
+	UPDATE TBL_CLASS A
+	   SET 
+	       A.CLS_APPLY_CNT = (SELECT B.CLS_APPLY_CNT
+	                            FROM TBL_CLASS B
+	                           WHERE B.CLS_NUM= #{clsNum}) - 1
+	 WHERE CLS_NUM = #{clsNum}    
+</update>
+</mapper>

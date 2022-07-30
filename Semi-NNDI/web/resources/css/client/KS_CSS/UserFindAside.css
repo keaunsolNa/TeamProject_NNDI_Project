@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+h3{
+	margin-bottom: 30px; 
+	margin-top: 30px;
+	margin-left: 15%
+}
+
+table{
+	border: 1px solid black; 
+	height: 300px; 
+	width: 400px; 
+	float: left; 
+	margin-left: 130px;	
+}
+
+td{
+	text-align: center;	
+}
+
+button{
+	background-color: rgba(254, 190, 190, 0.83); 
+	color: white;
+}
+
+img{
+	text-align: center;
+}

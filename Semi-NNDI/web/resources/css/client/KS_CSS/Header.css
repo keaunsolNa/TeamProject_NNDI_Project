@@ -1,0 +1,40 @@
+
+.topnav0{
+	float: right; 
+	background-color: white;
+	width: auto;
+}
+
+.topnav0 button {
+	background-color: white;
+	color: rgba(254, 190, 190, 1);
+	border: 0px
+}
+
+  .topnav1 {
+    overflow: hidden;
+    background-color: rgba(254, 190, 190, 1);
+  }
+  
+  .topnav1 button {
+    float: right;
+     background-color: rgba(254, 190, 190, 1);
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    border: 0px;
+  }
+
+
+.topnav2 {
+	background-color: rgba(254, 190, 190, 0.23);
+	width: auto; 
+	height: 160px;
+}
+
+.topnav2 img{
+	height: 100%;
+	float: right;
+}

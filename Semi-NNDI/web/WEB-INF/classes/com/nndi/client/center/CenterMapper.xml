@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+ <mapper namespace="com.nndi.client.center.CenterMapper">
+ 
+ <!-- CenterManagementDTO -->
+ 	<resultMap type="com.nndi.model.commondto.CenterManagementDTO" id="centerResultMap">
+ 		<id property="cenName" column="CEN_NAME"/>
+ 		<result property="centerKindName" column="CEN_KINDS_NAME"/>
+ 		<result property="cenUseYn" column="CEN_USE_YN"/>
+ 		<result property="cenCapacity" column="CEN_CAPACITY"/>
+ 	</resultMap>
+ 	
+ <!-- RentRequestDTO -->
+ 	<resultMap type="com.nndi.model.commondto.RentRequestDTO" id="rentRequestResultMap">
+ 		<id property="num" column="POST_NUM"/>
+ 		<result property="centerName" column="CENTER_NAME"/>
+ 		<result property="managerId" column="MANAGER_ID"/>
+ 		<result property="memId" column="MEM_ID"/>
+ 		<result property="rentReqYn" column="RENT_REQ_YN"/>
+ 		<result property="rentCost" column="RENT_COST"/>
+ 		<result property="rentPayYn" column="RENT_PAY_YN"/>
+ 		<result property="rentRefYn" column="RENT_REF_YN"/>
+ 		<result property="rentStart" column="RENT_START"/>
+ 		<result property="rentEnd" column="RENT_END"/>
+ 	</resultMap>
+ 	
+ 	<!-- 대관 전체 리스트 조회 -->
+ 	<select id="selectCenterList" resultMap="centerResultMap">
+ 		SELECT
+               A.CEN_NAME
+ 		     , A.CEN_KINDS_NAME
+ 		     , A.CEN_USE_YN
+ 		     , A.CEN_CAPACITY
+ 		  FROM TBL_CENTER_MANAGEMENT A
+ 	</select>
+ 	
+ 	<!-- 대관 요청 내역 조회 -->
+ 	<select id="selectRentRequest" parameterType="string" resultMap="rentRequestResultMap">
+ 		SELECT
+               A.POST_NUM
+ 		     , A.CENTER_NAME
+ 		     , A.MANAGER_ID
+ 		     , A.MEM_ID
+ 		     , A.RENT_REQ_YN
+ 		     , A.RENT_COST
+ 		     , A.RENT_PAY_YN
+ 		     , A.RENT_REF_YN
+ 		     , A.RENT_START
+ 		     , A.RENT_END
+ 		  FROM TBL_RENT_REQUEST A
+ 		 WHERE A.CENTER_NAME = #{ num }
+ 	</select>
+ 	
+ 	<!-- 대관 상세보기 조회 -->
+ 	<select id="selectCenterDetail" parameterType="string" resultMap="centerResultMap">
+ 		SELECT
+               A.CEN_NAME
+ 		     , A.CEN_KINDS_NAME
+ 		     , A.CEN_USE_YN
+ 		     , A.CEN_CAPACITY
+ 		  FROM TBL_CENTER_MANAGEMENT A
+ 		 WHERE A.CEN_NAME = #{ num }
+ 		  
+ 	</select>
+ 	
+ 	<!-- 대관 신청하기 -->
+ 	<insert id="insertRantReq" parameterType="com.nndi.model.commondto.RentRequestSQLDTO">
+ 		INSERT
+          INTO TBL_RENT_REQUEST
+ 		VALUES
+ 		(
+ 		  SEQ_REQUEST_POST_NUM.NEXTVAL + 20
+ 		, #{ centerName }
+ 		, NULL
+ 		, #{ memId }
+ 		, 'N'
+ 		, '0'
+ 		, 'N'
+ 		, 'N'
+ 		, #{ rentStart }
+ 		, #{ rentEnd }
+ 		)
+ 	</insert>
+ 	
+ 
+ </mapper>

@@ -1,0 +1,35 @@
+.ycMemberDivStyle1{
+    padding: 30px; 
+    border: 10px solid #dddddd; 
+    width: 85%; 
+    float:right;
+}
+.butmar40{
+    margin-left: 40%;
+}
+
+.butmar20{
+    margin-left: 20%;
+}
+
+.butmartop1{
+    margin-left: 50%; 
+    margin-top: 10px;
+}
+.butmar45{
+    margin-left: 45%;
+}
+.tcenter{
+    text-align: center;
+}
+.imbackColor1{
+    background-color: rgb(68, 118, 255) !important;
+}
+.ycDivStyle1{
+    float:right; 
+    margin-right: 10%;
+}
+.marleft50{
+    margin-left: 50%; 
+    margin-bottom: 3%;
+}

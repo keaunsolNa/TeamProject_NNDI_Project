@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.admin.teacher.TeacherMapper">
+
+	<resultMap type="com.nndi.model.commondto.TeacherDTO" id="TeacherMap">
+  	<id property="no" column="TCR_NO"/>
+  	<result property="name" column="TCR_NAME"/>
+  	<result property="gender" column="TCR_GENDER"/>
+  	<result property="birth" column="TCR_BIRTH"/>
+  	<result property="email" column="TCR_EMAIL"/>
+  	<result property="phone" column="TCR_PHONE"/>
+  	<result property="address" column="TCR_ADDRESS"/>
+  	<result property="contractYn" column="TCR_CONTRACT_YN"/>
+  </resultMap>
+  
+  <!-- 강사목록 전체 조회 쿼리 -->
+  <select id="selectAllTeacherList" resultMap="TeacherMap">
+  	SELECT
+  	       A.TCR_NO
+  	     , A.TCR_NAME
+  	     , A.TCR_GENDER
+  	     , A.TCR_PHONE
+  	     , A.TCR_EMAIL
+  	     , A.TCR_ADDRESS
+  	     , A.TCR_CONTRACT_YN
+  	  FROM TBL_TEACHER A
+  	 ORDER BY A.TCR_NAME ASC
+  </select>
+  
+  <!-- 강사상세 조회 쿼리 -->
+  <select id="selectOneTeacherByNo" parameterType="_int" resultMap="TeacherMap">
+  	SELECT
+  	       A.TCR_NO
+  	     , A.TCR_NAME
+  	     , A.TCR_GENDER
+  	     , A.TCR_PHONE
+  	     , A.TCR_EMAIL
+  	     , A.TCR_BIRTH
+  	     , A.TCR_ADDRESS
+  	     , A.TCR_CONTRACT_YN
+  	  FROM TBL_TEACHER A
+  	 WHERE A.TCR_NO = #{ no }  
+  </select>
+  
+	<!-- 신규 강사 등록 -->
+	<insert id="insertTeacher" parameterType="com.nndi.model.commondto.TeacherDTO" >
+		INSERT 
+		  INTO TBL_TEACHER
+		VALUES 
+		(
+		  SEQ_TCR_NO.NEXTVAL
+		, #{ name }
+		, #{ gender }
+		, #{ birth }
+		, #{ email }
+		, #{ phone }
+		, #{ address }
+		, #{ contractYn }
+		)
+	</insert>
+   
+   <!-- 강사 삭제  CONTRACT_YN N->Y 업데이트-->
+  <update id="deleteTeacher" parameterType="com.nndi.model.commondto.TeacherDTO">
+    UPDATE
+      	   TBL_TEACHER 
+       SET TCR_CONTRACT_YN ='Y'
+     WHERE TCR_CONTRACT_YN ='N'
+     AND TCR_NO = #{ no }  
+  </update> 	 
+	
+	<!-- 강사 수정 -->
+	<update id="updateTeacher" parameterType="com.nndi.model.commondto.TeacherDTO">
+		UPDATE
+		       TBL_TEACHER A
+		   SET A.TCR_NAME = #{ name }
+		     , A.TCR_GENDER = #{ gender }
+			 , A.TCR_BIRTH = #{ birth }
+			 , A.TCR_EMAIL = #{ email }
+			 , A.TCR_PHONE = #{ phone }
+			 , A.TCR_ADDRESS = #{ address }
+  			 , A.TCR_CONTRACT_YN = #{ contractYn }	
+		 WHERE A.TCR_NO =  #{ no }
+	</update>
+	
+	<!-- 강사 재계약 요청 -->
+  <update id="recontactTeacher" parameterType="string">
+    UPDATE
+      	   TBL_TEACHER 
+       SET TCR_CONTRACT_YN ='N'
+     WHERE TCR_CONTRACT_YN ='Y'
+     AND TCR_NO = #{ no }  
+  </update> 
+</mapper>
+

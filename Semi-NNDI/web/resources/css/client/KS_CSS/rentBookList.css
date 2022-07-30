@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.rentBookList{
+	margin-left: 15%;
+	text-align: center;
+	border: 1px solid black;
+	
+}
+
+.rentBookList td {
+	width: 30%
+}
+
+section {
+	margin-left: 10%;
+	margin-right: 10%	
+}
+
+.rentBookList th{
+	background-color:  rgba(254, 190, 190, 1);
+}

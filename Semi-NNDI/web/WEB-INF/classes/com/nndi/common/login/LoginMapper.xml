@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.common.login.LoginMapper">
+
+	<!-- MemberAlive ResultMap, typeAlias = AliveDTO -->
+	<resultMap type="AliveDTO" id="memberAliveResultMap">
+		<id property="id" column="ID"/>
+		<result property="idQueNum" column="ID_QUE_NUM"/>
+		<result property="phone1" column="PHONE1"/>
+		<result property="phone2" column="PHONE2"/>
+		<result property="phone3" column="PHONE3"/>
+		<result property="email1" column="EMAIL1"/>
+		<result property="email2" column="EMAIL2"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="address2" column="ADDRESS2"/>
+		<result property="address3" column="ADDRESS3"/>
+		<result property="pwd" column="PWD"/>
+		<result property="name" column="NAME"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="idAnswer" column="ID_ANSWER"/>
+		<result property="gender" column="GENDER"/>
+		<result property="lastLogin" column="LAST_LOGIN"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="outDate" column="OUT_DATE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+	</resultMap>
+	
+	<!-- MemberDead ResultMap, typeAlias = DeadDTO -->
+	<resultMap type="DeadDTO" id="DeadMemberResultMap">
+		<id property="no" column="NO"/>
+		<result property="phone1" column="PHONE1"/>
+		<result property="phone2" column="PHONE2"/>
+		<result property="phone3" column="PHONE3"/>
+		<result property="email1" column="EMAIL1"/>
+		<result property="email2" column="EMAIL2"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="address2" column="ADDRESS2"/>
+		<result property="address3" column="ADDRESS3"/>
+		<result property="id" column="ID"/>
+		<result property="pwd" column="PWD"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="name" column="NAME"/>
+		<result property="gender" column="GENDER"/>
+	</resultMap>
+	
+	<!-- Manager ResultMap, typeAlias = ManagerDTO -->
+	<resultMap type="ManagerDTO" id="ManagerlistResultMap">
+		<id property="managerId" column="MANAGER_ID"/>
+		<result property="pwd" column="PWD"/>
+		<result property="managerName" column="MANAGER_NAME"/>
+	</resultMap>
+	
+	<!-- Login Checker(Encrypt, Manager) -->
+	<select id="adminLoginCheck" resultType="java.lang.String">
+		SELECT
+		 	   A.PWD
+		  FROM TBL_MANAGER A
+		 WHERE A.MANAGER_ID = #{ managerId } 	   
+	</select>
+	
+	<!-- MemberPwdFinder -->
+	<select id="selectMemberPwd" resultType="java.lang.String">
+		SELECT
+		       A.PWD
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE A.ID = #{ id }
+		   AND A.PHONE1 = #{ phone1 }
+		   AND A.PHONE2 = #{ phone2 }
+		   AND A.PHONE3 = #{ phone3 }      
+	</select>
+	
+	<!-- MemberPwdUpdate -->
+	<update id="updateMemberPassword" parameterType="AliveDTO">
+		UPDATE
+			   TBL_MEMBER_ALIVE A
+		   SET A.PWD = #{ pwd }
+		 WHERE A.ID = #{ id }  
+		  	   
+	</update>
+	
+	<!-- Login ManagerList Select -->
+	<select id="selectLoginManager" resultMap="ManagerlistResultMap">
+		SELECT
+		       A.MANAGER_ID
+		     , A.PWD
+		     , A.MANAGER_NAME
+		  FROM TBL_MANAGER A
+		 WHERE A.MANAGER_ID = #{ managerId }       
+	</select>
+	
+	<!-- Login Checker(Encrypt, Member) -->
+	<select id="LoginCheck" resultType="java.lang.String" >
+		SELECT
+		       A.PWD
+		  FROM TBL_MEMBER_ALIVE A    
+		 WHERE A.USER_STATUS = 'A'
+		   AND A.ID = #{ id }
+	</select>
+	
+	<!-- Login MemberList Select -->
+	<select id="selectLoginMember" resultMap="memberAliveResultMap" >
+		SELECT 
+			   A.ID	
+			 , A.ID_QUE_NUM
+			 , A.PHONE1
+			 , A.PHONE2
+			 , A.PHONE3
+			 , A.EMAIL1
+			 , A.EMAIL2
+			 , A.ADDRESS1
+			 , A.ADDRESS2
+			 , A.ADDRESS3
+			 , A.PWD
+			 , A.NAME
+			 , A.BIRTH
+			 , A.ID_ANSWER
+			 , A.GENDER
+			 , A.LAST_LOGIN
+			 , A.USER_STATUS
+			 , A.OUT_DATE
+			 , A.ENROLL_DATE
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE A.ID = #{ id } 	   	
+		   AND A.USER_STATUS = 'A'
+	</select>
+
+	<!-- Update LastLogin Member -->
+	<update id="updateLastLogin" parameterType="AliveDTO">
+		UPDATE
+		 	   TBL_MEMBER_ALIVE A
+		   SET A.LAST_LOGIN = SYSDATE
+		 WHERE A.ID = #{ id }  	   
+		   AND A.USER_STATUS = 'A' 
+	</update>
+	
+	<!-- Login Checker(Encrypt, restMember) -->
+	<select id="restLoginCheck" resultType="java.lang.String" >
+		SELECT
+		       A.PWD
+		  FROM TBL_MEMBER_ALIVE A    
+		 WHERE A.USER_STATUS = 'R'
+		   AND A.ID = #{ id }
+	</select>
+	
+		<!-- Login restMemberList Select -->
+	<select id="selectRestLoginMember" resultMap="memberAliveResultMap" >
+		SELECT 
+			   A.ID 
+			 , A.ID_QUE_NUM
+			 , A.PHONE1
+			 , A.PHONE2
+			 , A.PHONE3
+			 , A.EMAIL1
+			 , A.EMAIL2
+			 , A.ADDRESS1
+			 , A.ADDRESS2
+			 , A.ADDRESS3
+			 , A.PWD
+			 , A.NAME
+			 , A.BIRTH
+			 , A.ID_ANSWER
+			 , A.GENDER
+			 , A.LAST_LOGIN
+			 , A.USER_STATUS
+			 , A.OUT_DATE
+			 , A.ENROLL_DATE
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE A.ID = #{ id } 	   	
+		   AND A.USER_STATUS = 'R'
+	</select>
+	
+	<!-- Find MemberId By Q -->
+	<select id="findMemberIdByQ" resultType="java.lang.String">
+		SELECT
+		       A.ID
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE A.NAME = #{ name }
+ 		   AND A.ID_QUE_NUM = #{ idQueNum } 
+		   AND A.ID_ANSWER = #{ idAnswer } 
+		   AND A.USER_STATUS = 'A'      
+	</select>
+	
+	<!-- Update AliveMember To RestMember -->
+	<update id="updateRestMember" parameterType="AliveDTO">
+		UPDATE
+			   TBL_MEMBER_ALIVE A
+		   SET A.USER_STATUS = 'R'
+		 WHERE SYSDATE - LAST_LOGIN > 60
+		   AND USER_STATUS = 'A'   	    	
+	</update>
+	
+	<!-- Select OutMember List -->
+	<select id="selectOutMemberList" resultMap="memberAliveResultMap">
+		SELECT
+			   A.PHONE1
+			 , A.PHONE2
+			 , A.PHONE3
+			 , A.EMAIL1  	
+			 , A.EMAIL2  	
+			 , A.ADDRESS1
+			 , A.ADDRESS2
+			 , A.ADDRESS3
+			 , A.ID
+			 , A.PWD
+			 , A.BIRTH
+			 , A.NAME
+			 , A.GENDER
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE USER_STATUS = 'O'
+		   AND SYSDATE - OUT_DATE > 365  
+	</select>
+	
+	<!-- Insert DeadMemberList -->
+	<insert id="insertDeadMember" parameterType="DeadDTO">
+		INSERT
+		  INTO TBL_MEMBER_DEAD A
+		(
+		  A.NO
+		, A.PHONE1
+		, A.PHONE2
+		, A.PHONE3
+		, A.EMAIL1
+		, A.EMAIL2
+		, A.ADDRESS1
+		, A.ADDRESS2
+		, A.ADDRESS3
+		, A.ID
+		, A.PWD
+		, A.BIRTH
+		, A.NAME
+		, A.GENDER  
+		)  
+		VALUES
+		(
+		  CONCAT('D-', SEQ_MEMBER_DEAD_NO.NEXTVAL)	
+		, #{ phone1 }
+		, #{ phone2 }
+		, #{ phone3 }
+		, #{ email1 }
+		, #{ email2 }
+		, #{ address1 }
+		, #{ address2 }
+		, #{ address3 }
+		, #{ id }
+		, #{ pwd }
+		, #{ birth }
+		, #{ name }  
+		, #{ gender }
+		)
+	</insert>
+	
+	<!-- Delete MemberAliveList From Over 1 Year OutDate -->
+	<delete id="deleteOutMember" parameterType="_int">
+		DELETE
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE SYSDATE - OUT_DATE > 365
+		   AND USER_STATUS = 'O'  
+	</delete>
+
+	<!-- Update RestMember By Login -->
+	<update id="updateRestmemberLogin" parameterType="AliveDTO">
+		UPDATE
+		       TBL_MEMBER_ALIVE A
+		   SET A.USER_STATUS = 'A'
+		 WHERE A.ID = #{ id }
+	</update>
+
+	<!-- 회원가입 진행시 아이디 중복체크 -->
+	<select id="selectCheckUserId" parameterType="string" resultType="_int">
+		SELECT
+		       COUNT(A.ID)
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE A.ID = #{ userId }
+	</select>
+	
+	<!-- 이메일 인증을 위한 이메일 조회 -->
+	<select id="selectOneMemberAliveById" parameterType="string" resultType="string">
+		SELECT 
+		       A.EMAIL1 || '@' || A.EMAIL2 AS "email"
+		  FROM TBL_MEMBER_ALIVE A
+		 WHERE A.ID = #{ id }
+	</select>
+</mapper>

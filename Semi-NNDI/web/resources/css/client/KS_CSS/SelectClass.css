@@ -1,0 +1,26 @@
+section {
+    float: left;
+    margin-left: 10%;
+}
+
+.inputbutton{
+    background-color: rgba(254, 190, 190, 1);
+    border: 0;
+    width: 200px;
+    color: white;
+  }
+
+  .inputbutton2{
+    background-color: rgba(254, 190, 190, 1);
+    border: 0;
+    width: 200px;
+    color: white;
+  }
+
+  .selectClassTable label {
+    border: 1px solid black;
+    width: 100%;
+    height: 30px;
+    text-align: left;
+    
+  }

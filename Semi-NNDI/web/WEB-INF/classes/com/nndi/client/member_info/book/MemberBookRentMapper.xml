@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nndi.client.member_info.book.MemberBookRentMapper">
+
+	<!-- MemberAlive ResultMap, typeAlias = AliveDTO -->
+	<resultMap type="AliveDTO" id="memberAliveResultMap">
+		<id property="id" column="ID"/>
+		<result property="idQueNum" column="ID_QUE_NUM"/>
+		<result property="phone1" column="PHONE1"/>
+		<result property="phone2" column="PHONE2"/>
+		<result property="phone3" column="PHONE3"/>
+		<result property="email1" column="EMAIL1"/>
+		<result property="email2" column="EMAIL2"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="address2" column="ADDRESS2"/>
+		<result property="address3" column="ADDRESS3"/>
+		<result property="pwd" column="PWD"/>
+		<result property="name" column="NAME"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="idAnswer" column="ID_ANSWER"/>
+		<result property="gender" column="GENDER"/>
+		<result property="lastLogin" column="LAST_LOGIN"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="outDate" column="OUT_DATE"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+	</resultMap>
+	
+	<!-- BookRentDTO ReulstMap, typeAlias="BookRentDTO -->
+	<resultMap type="BookRentDTO" id="BookRentResultMap">
+		<id property="rentNum" column="RENT_NUM"/>
+		<result property="code" column="CODE"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="rentDate" column="RENT_DATE"/>
+		<result property="returnDate" column="RETURN_DATE"/>
+		<result property="rentYn" column="RENT_YN"/>
+	</resultMap>
+	
+	<!-- BookInfoDTO ResultMap, typeAlias="BookInfoDTO -->
+	<resultMap type="BookInfoDTO" id="BookResultMap">
+		<id property="number" column="NUMBER"/>
+		<result property="KindsCode" column="KINDS_CODE"/>
+		<result property="name" column="NAME"/>
+		<result property="writer" column="WRITER"/>
+		<result property="locationCode" column="LOCATION_CODE"/>
+		<result property="isbn" column="ISBN"/>
+		<result property="serachYN" column="SEARCH_YN"/>
+		<result property="publisher" column="PUBLISHER"/>
+	</resultMap>
+	
+	<!-- MemberBookRentDTO ReulstMap, typeAlias="MemberAndBookRentDTO -->
+	<resultMap type="MemberAndBookRentDTO" id="MemberBookRentResult">
+		<id property="rentNum" column="RENT_NUM"/>
+		<result property="code" column="CODE"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="rentDate" column="RENT_DATE"/>
+		<result property="returnDate" column="RETURN_DATE"/>
+		<result property="rentYn" column="RENT_YN"/>
+	  	<association property="member" resultMap="memberAliveResultMap"/>
+	  	<association property="book" resultMap="BookResultMap"/>
+	</resultMap>
+	
+ 	<select id="selectBookRentList" resultMap="MemberBookRentResult">
+		SELECT
+			   B.NAME
+			 , B.WRITER
+			 , A.RENT_YN
+			 , A.RENT_DATE
+		  FROM TBL_BOOK_RENT A
+		  JOIN TBL_BOOK_INFO B ON (A.CODE = B.CODE) 
+		  JOIN TBL_MEMBER_ALIVE C ON (A.MEM_ID = C.ID)
+		 WHERE A.RENT_YN = 'N' 
+		   AND C.ID = #{id}
+	</select> 
+
+</mapper>

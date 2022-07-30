@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.nndi.model.commondto.MemberAliveDTO" alias="AliveDTO"/>
+		<typeAlias type="com.nndi.model.commondto.MemberDeadDTO" alias="DeadDTO"/>
+		<typeAlias type="com.nndi.model.commondto.ManagerDTO" alias="ManagerDTO"/>
+		<typeAlias type="com.nndi.model.commondto.BookRentDTO" alias="BookRentDTO"/>
+		<typeAlias type="com.nndi.model.commondto.BookInfoDTO" alias="BookInfoDTO"/>
+		<typeAlias type="com.nndi.model.joindto.client.member_info.book.MemberAndBookRentDTO" alias="MemberAndBookRentDTO"/>
+	</typeAliases>
+	
+	<environments default="dev">
+		<environment id="dev">
+		
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="C##NNDI"/>
+				<property name="password" value="NNDI"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<!-- package는 존재하지 않는 경로로 해도 에러가 나지 않는다 ('.'으로 구분한다. mapper 태그 다음에 써야할 엘리먼트이다.) -->
+		<package name="com.nndi.admin"/>
+		<package name="com.nndi.client"/>
+		<package name="com.nndi.common"/>
+	</mappers>
+</configuration>

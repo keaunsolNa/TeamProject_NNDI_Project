@@ -1,0 +1,155 @@
+  * {
+    box-sizing: border-box;
+  }
+  /* Style the header */
+  header {
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+  }
+  /* 너나들이 중랑 로고 */
+
+  .nndi-logo{
+    margin-top: 5px;
+    margin-bottom:2px;
+    width: 600px;
+    height: 88px;
+    left: 8px;
+    top: 15px;
+  }
+
+  .nndi-foot{
+    width: 800px;
+    height: 100px;
+    left: 249px;
+    top: 1648px;
+  }
+  /* topnav */
+  .topnav {
+    overflow: hidden;
+    background-color: rgba(99, 61, 251, 0.6);
+  }
+  
+  .topnav.butns {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    border: none;
+    background-color: rgba(166, 144, 255, 0.85);
+  }
+ 
+  /* footnav */
+  .nav {
+    overflow: hidden;
+    background-color: rgba(99, 61, 251, 0.6);
+  }
+  
+  .nav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    margin-right: 5px;
+  }
+
+
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+
+  /* Create two columns/boxes that floats next to each other */
+  nav {
+    float: left;
+    width: 15%;
+    height: 100%;
+    background: rgba(91, 69, 176, 0.85);
+    padding: 20px;
+  }
+  
+  /* Style the list inside the menu */
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .post {
+    float: left;
+    padding: 20px;
+    background-color: #f1f1f1;
+  }
+  .post.s{
+    width: 40%;
+    margin-top: 20px;
+    margin-bottom:20px;
+    margin-left: 10px;
+    border-style: groove;
+  }
+  .post.re{
+    width: 81%;
+    margin-left: 10px;
+    border-style: groove;
+  }
+  .float{
+    float: left;
+    padding: 10px;
+    background-color: #ffffff;
+    width: 81%;
+    margin-left: 10px;
+
+
+  }
+
+  
+  
+  /* Clear floats after the columns */
+  section::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Style the footer */
+  footer {
+    padding: 10px;
+    width:10%;
+  }
+
+ 
+  
+  /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+  @media (max-width: 600px) {
+    nav, article {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+.tb_02 {
+  border:2px solid #a5a4a4 !important;
+  width: 90% !important;
+  margin-bottom: 1%;
+}
+.tb_02 tbody th{
+  background-color:#f8f8f8;border-bottom:1px solid #e1e1e1 !important;
+  padding: 8px 30px;text-align:left !important;
+  text-align:center !important
+}
+.tb_02 tbody td{
+  border-bottom:1px solid #e1e1e1;padding: 8px 15px;
+  text-align:left !important
+} 
+
+.tb_02 tbody td a{
+  vertical-align:middle !important
+}
